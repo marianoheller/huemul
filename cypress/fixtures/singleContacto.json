@@ -1,0 +1,27 @@
+{
+  "id": "308ec94c5576f6652ed5a37bbd8163bd2a016d42",
+  "nombre": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mail": "sblesingm@mediafire.com",
+  "clientes": [
+    {
+      "id": "9b9acef826a56552e3b0c12ed4bd265aa922f0ac",
+      "razonSocial": "Youopia",
+      "telefono": "(202) 1370148",
+      "cuit": "3028429151",
+      "fax": null,
+      "domicilio": null,
+      "localidad": "District of Columbia",
+      "provincia": "DC"
+    },
+    {
+      "id": "51df452028f3b5d7737565ab9f8d5ff5dcdfaffd",
+      "razonSocial": "Skinte",
+      "telefono": "(217) 6458568",
+      "cuit": "3135986796",
+      "fax": "405 220 5881",
+      "domicilio": "616 Summerview Road",
+      "localidad": "Illinois",
+      "provincia": "IL"
+    }
+  ]
+}
