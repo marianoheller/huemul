@@ -1,7 +1,10 @@
 /* eslint-disable global-require */
 import { createStore, applyMiddleware, compose } from 'redux';
+
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import jwtInject from './middleware/jwtInject';
+
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 
@@ -19,6 +22,7 @@ export default function configureStore(initialState) {
     composeEnhancers(applyMiddleware(
       sagaMiddleware,
       logger,
+      jwtInject,
     )),
   );
     /* eslint-enable */

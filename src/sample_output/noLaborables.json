@@ -1,0 +1,74 @@
+[
+    {
+        "fecha": "2018-01-01",
+        "nombre": "Año Nuevo"
+    },
+    {
+        "fecha": "2018-02-12",
+        "nombre": "Carnaval"
+    },
+    {
+        "fecha": "2018-02-13",
+        "nombre": "Carnaval"
+    },
+    {
+        "fecha": "2018-03-24",
+        "nombre": "Día Nacional de la Memoria por la Verdad y la Justicia"
+    },
+    {
+        "fecha": "2018-03-30",
+        "nombre": "Viernes Santo Festividad Cristiana"
+    },
+    {
+        "fecha": "2018-04-02",
+        "nombre": "Día del Veterano y de los Caídos en la Guerra de Malvinas"
+    },
+    {
+        "fecha": "2018-05-01",
+        "nombre": "Día del Trabajador"
+    },
+    {
+        "fecha": "2018-05-25",
+        "nombre": "Día de la Revolución de Mayo"
+    },
+    {
+        "fecha": "2018-06-17",
+        "nombre": "Paso a la Inmortalidad del Gral. Don Martín Güemes"
+    },
+    {
+        "fecha": "2018-06-20",
+        "nombre": "Paso a la Inmortalidad del General Manuel Belgrano"
+    },
+    {
+        "fecha": "2018-07-09",
+        "nombre": "Día de la Independencia"
+    },
+    {
+        "fecha": "2018-08-20",
+        "nombre": "Paso a la Inmortalidad del General José de San Martín"
+    },
+    {
+        "fecha": "2018-10-15",
+        "nombre": "Día del Respeto a la Diversidad Cultural"
+    },
+    {
+        "fecha": "2018-11-19",
+        "nombre": "Día de la Soberanía Nacional"
+    },
+    {
+        "fecha": "2018-12-08",
+        "nombre": "Inmaculada Concepción de María"
+    },
+    {
+        "fecha": "2018-12-24",
+        "nombre": "Feriado Puente Turístico"
+    },
+    {
+        "fecha": "2018-12-25",
+        "nombre": "Navidad"
+    },
+    {
+        "fecha": "2018-12-31",
+        "nombre": "Feriado Puente Turístico"
+    }
+]

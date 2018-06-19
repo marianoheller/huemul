@@ -1,14 +1,15 @@
 import { call, put, takeEvery, fork } from 'redux-saga/effects';
+import qs from 'qs';
 import axios from 'axios';
 
 import * as loginActions from '../actions/login';
 import * as userActions from '../actions/user';
 
 
-const postLoginToAPI = data => axios.post('/api/auth/login', {
-  email: data.email,
-  password: data.password,
-});
+const postLoginToAPI = data => axios.post('/api/autenticacion', qs.stringify({
+  usuario: data.usuario,
+  clave: data.clave,
+}));
 
 export function* loginProcess(action) {
   try {
@@ -16,20 +17,12 @@ export function* loginProcess(action) {
       postLoginToAPI,
       action.loginData,
     );
-
-    // Errors
-    if (payload.data.errors) {
-      yield put(loginActions.loginFailed(payload.data.errors));
-    }
-
     // User data
-    if (payload.data) {
-      yield put(userActions.userLogin(payload.data));
-      yield put(loginActions.loginSuccess());
-    }
+    yield put(userActions.userLogin(payload.data));
+    yield put(loginActions.login.success());
   } catch (e) {
-    console.log('login error', e);
-    yield put(loginActions.loginFailed({
+    // Error body {"status":401,"description":null,"message":"Not Authorized"}
+    yield put(loginActions.login.failure({
       request: e.message,
     }));
   }
@@ -39,7 +32,7 @@ export function* loginProcess(action) {
 export function* watchLoginRequest() {
   yield fork(
     takeEvery,
-    loginActions.LOGIN_REQUEST,
+    loginActions.LOGIN.REQUEST,
     loginProcess,
   );
 }

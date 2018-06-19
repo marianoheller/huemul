@@ -18,9 +18,18 @@ describe('user actions', ()=> {
         })
     })
 
-    it('should return the right type and payload on userLogout', () => {
-        expect(actions.userCheckin()).toEqual({
-            type: actions.USER_CHECKIN,
+    it('should return the right type and jwt on getVersion', () => {
+        expect(actions.getVersion()).toEqual({
+            type: actions.VERSION_GET,
+            jwt: true
+        })
+    })
+
+    it('should return the right type and buildVersion on setVersion', () => {
+        const mockVersion = "0.0.1";
+        expect(actions.setVersion(mockVersion)).toEqual({
+            type: actions.VERSION_SET,
+            buildVersion: mockVersion
         })
     })
 

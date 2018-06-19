@@ -1,19 +1,19 @@
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+import { createRequestTypes, createAction } from '../utils';
 
 
-export const loginRequest = loginData => ({
-  type: LOGIN_REQUEST,
-  loginData,
-});
+/** *****************************************************************
+ * LOGIN
+ */
+export const LOGIN = createRequestTypes('LOGIN');
 
-export const loginFailed = errors => ({
-  type: LOGIN_FAILED,
-  errors,
-});
+export const login = {
+  request: loginData => createAction(LOGIN.REQUEST, { loginData }),
+  success: () => createAction(LOGIN.SUCCESS),
+  failure: errors => createAction(LOGIN.FAILURE, { errors }),
+};
 
-
-export const loginSuccess = () => ({
-  type: LOGIN_SUCCESS,
-});
+/** *****************************************************************
+ * LOGIN_CLEAN_ERRORS
+ */
+export const LOGIN_CLEAN_ERRORS = 'LOGIN_CLEAN_ERRORS';
+export const clearErrors = () => createAction(LOGIN_CLEAN_ERRORS);

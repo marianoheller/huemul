@@ -10,21 +10,22 @@ describe('login actions', ()=> {
             a:1, b: "asdasd", c: { d: ""}
         }
         expect(actions.loginRequest(loginData)).toEqual({
-            type: 'LOGIN_REQUEST',
+            type: actions.LOGIN_REQUEST,
             loginData
         })
     })
 
-    it('should return the right type and payload on loginFailed', () => {
-        const errors = [
-            {
-                type: "errorType", 
-                message: "asdasd"
-            }
-        ]
-        expect(actions.loginFailed(errors)).toEqual({
-            type: 'LOGIN_FAILED',
+    it('should return the right type and payload on loginFailure', () => {
+        const errors = { request: "request error!!" };
+        expect(actions.loginFailure(errors)).toEqual({
+            type: actions.LOGIN_FAILURE,
             errors
+        })
+    })
+
+    it('should return the right type and payload on loginFailure', () => {
+        expect(actions.loginSuccess()).toEqual({
+            type: actions.LOGIN_SUCCESS,
         })
     })
 })
