@@ -19,7 +19,7 @@ cursor: default;
 
 export const Subtitle = styled.div`
 margin-top: 0rem;
-font-size: 2rem;
+font-size: 1.6rem;
 font-family: "Roboto";
 font-weight: 100;
 color: ${props => props.theme.palette.primary[300]};

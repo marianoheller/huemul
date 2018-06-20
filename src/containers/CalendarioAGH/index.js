@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Calendar from '../../components/Calendar';
-import * as actions from '../../actions/calendarioCSA';
+import * as actions from '../../actions/calendarioAGH';
 import * as SC from './StyledComponents';
 
 
-class CalendarioCSA extends React.Component {
+class CalendarioAGH extends React.Component {
   componentDidMount() {
     const { getData } = this.props;
     getData();
@@ -20,7 +20,7 @@ class CalendarioCSA extends React.Component {
     } = this.props;
     return (
       <SC.CSAContainer>
-        <SC.Title>Calendario CSA</SC.Title>
+        <SC.Title>Calendario AGH</SC.Title>
         <Calendar
           spinnerMessage="Cargando calendario..."
           events={events}
@@ -35,7 +35,7 @@ class CalendarioCSA extends React.Component {
 }
 
 
-CalendarioCSA.propTypes = {
+CalendarioAGH.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
     start: PropTypes.instanceOf(Date),
     end: PropTypes.instanceOf(Date),
@@ -54,7 +54,7 @@ CalendarioCSA.propTypes = {
   getData: PropTypes.func,
 };
 
-CalendarioCSA.defaultProps = {
+CalendarioAGH.defaultProps = {
   events: [],
   isFetching: false,
   error: '',
@@ -63,11 +63,11 @@ CalendarioCSA.defaultProps = {
 };
 
 
-const mapStateToProps = ({ calendarioCSA }) => ({
-  errors: calendarioCSA.errors,
-  isFetching: calendarioCSA.isFetching,
-  events: calendarioCSA.events,
-  filter: calendarioCSA.filter,
+const mapStateToProps = ({ calendarioAGH }) => ({
+  errors: calendarioAGH.errors,
+  isFetching: calendarioAGH.isFetching,
+  events: calendarioAGH.events,
+  filter: calendarioAGH.filter,
 });
 
 
@@ -76,4 +76,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CalendarioCSA);
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarioAGH);

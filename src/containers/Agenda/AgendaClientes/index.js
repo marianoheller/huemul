@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
 
 AgendaClientes.propTypes = {
   clientesTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     razonSocial: PropTypes.string,
     telefono: PropTypes.string,
     fax: PropTypes.string,

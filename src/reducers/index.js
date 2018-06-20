@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import login from './login';
 import user from './user';
-import calendarioCSA from './calendarioCSA';
+import calendarioAGH from './calendarioAGH';
 import planificador from './planificador';
 import clientes from './clientes';
 import contactos from './contactos';
@@ -11,7 +11,7 @@ import trabajos from './trabajos';
 const appReducer = combineReducers({
   login,
   user,
-  calendarioCSA,
+  calendarioAGH,
   planificador,
   clientes,
   contactos,

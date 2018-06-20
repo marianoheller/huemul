@@ -13,16 +13,18 @@ export default class Trabajos extends React.Component {
       tabIndex: 1,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeIndex = this.handleChangeIndex.bind(this);
+    /* this.handleChangeIndex = this.handleChangeIndex.bind(this); */
   }
 
   handleChange(event, tabIndex) {
     this.setState({ tabIndex });
   }
 
+  /*
   handleChangeIndex(index) {
     this.setState({ tabIndex: index });
   }
+ */
 
   render() {
     return (
@@ -42,9 +44,11 @@ export default class Trabajos extends React.Component {
           </SC.StyledTabs>
         </AppBar>
         <SC.StyledSwipeableViews
-          index={this.state.tabIndex}
-          onChangeIndex={this.handleChangeIndex}
           animateHeight
+          index={this.state.tabIndex}
+          /* Commenting next line disables changing tabs by slinding on mobile */
+          /* But solves a problem with initial index */
+          /* onChangeIndex={this.handleChangeIndex} */
         >
           <SC.TabContainer>
             <NuevoTrabajoContainer />

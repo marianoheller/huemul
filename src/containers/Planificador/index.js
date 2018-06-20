@@ -37,7 +37,7 @@ const Title = styled.div`
   cursor: default;
 `;
 
-export default function CalendarioCSA() {
+export default function CalendarioAGH() {
   return (
     <PlanificadorContainer>
       <Title>Planificador</Title>

@@ -67,7 +67,7 @@ export default class ButtonAppBar extends React.Component {
         type: 'item', icon: 'planificador', text: 'Planificador', route: '/planificador',
       },
       {
-        type: 'item', icon: 'calendario', text: 'Calendario CSA', route: '/calendarioCSA',
+        type: 'item', icon: 'calendario', text: 'Calendario AGH', route: '/calendarioAGH',
       },
       { type: 'divider' },
       {
@@ -92,7 +92,7 @@ export default class ButtonAppBar extends React.Component {
             />
             <SC.LogoContainer to="/">
               <SC.Logo id="home-nav-link">
-                  Tracer
+                  huemul
                 <SC.Version active={Boolean(buildVersion)}>v{buildVersion || '0.00'}</SC.Version>
               </SC.Logo>
             </SC.LogoContainer>

@@ -113,7 +113,7 @@ NuevoTrabajo.propTypes = {
   }),
   clientes: PropTypes.arrayOf(PropTypes.shape({
     razonSocial: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
   })),
   contactos: PropTypes.arrayOf(PropTypes.shape({
     nombre: PropTypes.string,

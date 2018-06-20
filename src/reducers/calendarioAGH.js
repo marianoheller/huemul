@@ -1,4 +1,4 @@
-import * as actions from '../actions/calendarioCSA';
+import * as actions from '../actions/calendarioAGH';
 import csaPayload from '../sample_output/externoCalendarioCSA.json';
 
 

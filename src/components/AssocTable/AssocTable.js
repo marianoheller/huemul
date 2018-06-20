@@ -83,7 +83,7 @@ __AssocTable.propTypes = {
     prop: PropTypes.string,
   })),
   data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
   })),
   buttons: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string,

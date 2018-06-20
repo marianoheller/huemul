@@ -7,7 +7,7 @@ import Login from './containers/Login';
 import Logout from './containers/Logout';
 import Landing from './containers/Landing';
 import Planificador from './containers/Planificador';
-import CalendarioCSA from './containers/CalendarioCSA';
+import CalendarioAGH from './containers/CalendarioAGH';
 import Trabajos from './containers/Trabajos';
 import Agenda from './containers/Agenda';
 
@@ -47,10 +47,10 @@ export class AppComponent extends React.Component {
             }
             />
             <Route
-              path="/calendarioCSA"
+              path="/calendarioAGH"
               render={() =>
               /* if(!isAuthenticated) return <Redirect to="/" /> */
-                <CalendarioCSA />
+                <CalendarioAGH />
             }
             />
             <Route

@@ -228,13 +228,13 @@ AgendaContactos.propTypes = {
     isUpdating: PropTypes.bool,
   }),
   contactosTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string,
     nombre: PropTypes.string,
     mail: PropTypes.string,
     clientes: PropTypes.arrayOf(PropTypes.shape({})),
   })),
   clientesTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   })),
   getContactosTodos: PropTypes.func,
   updateContacto: PropTypes.func,

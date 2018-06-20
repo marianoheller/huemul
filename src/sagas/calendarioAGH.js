@@ -1,7 +1,7 @@
 import { call, put, takeEvery, fork } from 'redux-saga/effects';
 import axios from 'axios';
 
-import * as actions from '../actions/calendarioCSA';
+import * as actions from '../actions/calendarioAGH';
 
 
 /**

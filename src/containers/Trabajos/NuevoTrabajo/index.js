@@ -108,11 +108,11 @@ class NuevoTrabajoContainer extends React.Component {
 NuevoTrabajoContainer.propTypes = {
   crearTrabajo: PropTypes.func,
   contactosTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     nombre: PropTypes.string,
   })),
   clientesTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     razonSocial: PropTypes.string,
   })),
 };

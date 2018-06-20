@@ -6,7 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
 import { Search } from '@material-ui/icons';
 
-import * as actions from '../../actions/calendarioCSA';
+import * as actions from '../../actions/calendarioAGH';
 import { adjustHexOpacity } from '../../utils';
 
 
@@ -67,8 +67,8 @@ LegFilter.defaultProps = {
 };
 
 
-const mapStateToProps = ({ calendarioCSA }) => ({
-  filter: calendarioCSA.filter,
+const mapStateToProps = ({ calendarioAGH }) => ({
+  filter: calendarioAGH.filter,
 });
 
 
