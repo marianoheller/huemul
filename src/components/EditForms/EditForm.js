@@ -76,14 +76,16 @@ export default function EditForm(props) {
         />
       ))}
 
-      <AssocEdiTable
-        assocTableProps={table}
-        autocompleteProps={{
-          items: autocomplete.items,
-          opts: autocomplete.opts,
-        }}
-        onAdd={autocomplete.onAdd}
-      />
+      {Boolean(table) && Boolean(autocomplete) &&
+        <AssocEdiTable
+          assocTableProps={table}
+          autocompleteProps={{
+            items: autocomplete.items,
+            opts: autocomplete.opts,
+          }}
+          onAdd={autocomplete.onAdd}
+        />
+      }
 
       <BottomContainer>
         <StatusContainer isUpdating={updateStatus.isUpdating}>
@@ -143,8 +145,5 @@ EditForm.defaultProps = {
   textFields: [],
   onCancel: () => {},
   onSubmit: () => {},
-  autocomplete: {
-    text: '',
-    name: '',
-  },
+  autocomplete: null,
 };

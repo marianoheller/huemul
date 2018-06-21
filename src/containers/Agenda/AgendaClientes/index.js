@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash';
 
+import ModalConfirm from '../../../components/ModalConfirm';
 import CustomFilter from '../../../components/CustomFilter';
 import ListaAgenda from '../../../components/ListaAgenda';
+import ClienteForm from '../../../components/EditForms/ClienteForm';
 import * as clientesActions from '../../../actions/clientes';
 import * as SC from './StyledComponents';
 import { filterAgenda } from '../../../utils';
@@ -15,9 +18,32 @@ class AgendaClientes extends React.Component {
     super();
 
     this.state = {
+      // Delete cliente
+      deleteModalIsOpen: false,
+      currentDeleteIdCliente: null,
+
+      // Edit form
+      editModalIsOpen: false,
+      currentEditCliente: null,
+
+      // Pagination & Filtering
+      itemsPerPage: 5,
       filter: '',
+      activeFilter: '',
+      isFiltering: false,
     };
+
+    // Deleting
+    this.openDeleteModal = this.openDeleteModal.bind(this);
+    this.closeDeleteModal = this.closeDeleteModal.bind(this);
+
+    // Filtering
+    this.openEditModal = this.openEditModal.bind(this);
+    this.closeEditModal = this.closeEditModal.bind(this);
+    this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.setActiveFilter = this.setActiveFilter.bind(this);
+    this.setActiveFilter = debounce(this.setActiveFilter, 500);
   }
 
   componentDidMount() {
@@ -25,14 +51,90 @@ class AgendaClientes extends React.Component {
     getClientesTodos();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { updateStatus } = nextProps;
+    if (!updateStatus.isUpdating &&
+      !updateStatus.error.length &&
+      this.props.updateStatus.isUpdating
+    ) {
+      this.closeEditModal();
+    }
+  }
+
+  setActiveFilter(activeFilter) {
+    this.setState({ activeFilter, isFiltering: true }, () => {
+      this.setState({ isFiltering: false });
+    });
+  }
+
+  openEditModal(contacto) {
+    this.setState({
+      editModalIsOpen: true,
+      currentEditCliente: contacto,
+    });
+  }
+
+  closeEditModal() {
+    const { updateStatus, clearUpdateErrors } = this.props;
+    if (updateStatus.isUpdating) return;
+    this.setState({
+      editModalIsOpen: false,
+      currentEditCliente: null,
+    });
+    clearUpdateErrors();
+  }
+
+  openDeleteModal(id) {
+    this.setState({
+      deleteModalIsOpen: true,
+      currentDeleteIdCliente: id,
+    });
+  }
+
+  closeDeleteModal() {
+    const { deleteStatus, clearDeleteErrors } = this.props;
+    if (deleteStatus.isDeleting) return;
+    this.setState({
+      deleteModalIsOpen: false,
+      currentDeleteIdCliente: null,
+    });
+    clearDeleteErrors();
+  }
+
+  handleSubmitEdit(originalContacto) {
+    return (newContacto) => {
+      const { updateCliente } = this.props;
+      updateCliente({
+        ...originalContacto,
+        ...newContacto,
+      });
+    };
+  }
+
   handleFilterChange(filter) {
     this.setState({ filter });
   }
 
   render() {
-    const { clientesTodos, isActive } = this.props;
-    const { filter } = this.state;
+    const {
+      clientesTodos,
+      isActive,
+      deleteCliente,
+      updateStatus,
+      deleteStatus,
+    } = this.props;
+    const {
+      currentDeleteIdCliente,
+      deleteModalIsOpen,
+      currentEditCliente,
+      editModalIsOpen,
+      itemsPerPage,
+      filter,
+      activeFilter,
+      isFiltering,
+    } = this.state;
     if (!isActive) return null;
+
     return (
       <SC.AgendaClientesWrapper>
         <SC.Title>Clientes</SC.Title>
@@ -41,11 +143,13 @@ class AgendaClientes extends React.Component {
             placeholder="Buscar clientes"
             filter={filter}
             onFilterChange={this.handleFilterChange}
+            isLoading={isFiltering}
           />
           <ListaAgenda
+            itemsPerPage={itemsPerPage}
             items={
-              filter.length ?
-              filterAgenda(filter, clientesTodos, SEARCH_PARAMS)
+              activeFilter.length ?
+              filterAgenda(activeFilter, clientesTodos, SEARCH_PARAMS)
               : clientesTodos
             }
             fieldNameMap={{
@@ -56,8 +160,42 @@ class AgendaClientes extends React.Component {
               localidad: 'Localidad',
               provincia: 'Provincia',
             }}
+            onEditContacto={this.openEditModal}
+            onDeleteContacto={this.openDeleteModal}
           />
         </SC.ListaContainer>
+
+        { Boolean(editModalIsOpen) &&
+          <SC.StyledModal
+            isOpen={editModalIsOpen}
+            onRequestClose={this.closeEditModal}
+          >
+            <ClienteForm
+              updateStatus={updateStatus}
+              razonSocial={currentEditCliente.razonSocial}
+              telefono={currentEditCliente.telefono}
+              fax={currentEditCliente.fax}
+              domicilio={currentEditCliente.domicilio}
+              localidad={currentEditCliente.localidad}
+              provincia={currentEditCliente.provincia}
+              onSubmitEdit={this.handleSubmitEdit(currentEditCliente)}
+              onCancel={this.closeEditModal}
+              clientesTodos={clientesTodos}
+            />
+          </SC.StyledModal>
+        }
+
+        { Boolean(deleteModalIsOpen) &&
+          <ModalConfirm
+            isOpen={deleteModalIsOpen}
+            title="Eliminar contacto"
+            message="¿Esta seguro que desea eliminar el contacto?"
+            onAccept={() => deleteCliente(currentDeleteIdCliente)}
+            onClose={this.closeDeleteModal}
+            isLoading={deleteStatus.isDeleting}
+            error={deleteStatus.error}
+          />
+        }
       </SC.AgendaClientesWrapper>
     );
   }
@@ -65,15 +203,29 @@ class AgendaClientes extends React.Component {
 
 
 const mapStateToProps = ({ clientes }) => ({
-  clientesActivos: clientes.activos.data,
+  deleteStatus: clientes.delete,
+  updateStatus: clientes.update,
   clientesTodos: clientes.activos.data,
 });
 
 const mapDispatchToProps = dispatch => ({
   getClientesTodos: () => dispatch(clientesActions.clientesTodos.request()),
+  updateCliente: cliente => dispatch(clientesActions.clientesUpdate.request(cliente)),
+  clearUpdateErrors: () => dispatch(clientesActions.clientesUpdate.clearErrors()),
+  deleteCliente: id => dispatch(clientesActions.clientesDelete.request(id)),
+  clearDeleteErrors: () => dispatch(clientesActions.clientesDelete.clearErrors()),
 });
 
+
 AgendaClientes.propTypes = {
+  deleteStatus: PropTypes.shape({
+    error: PropTypes.string,
+    isDeleting: PropTypes.bool,
+  }).isRequired,
+  updateStatus: PropTypes.shape({
+    error: PropTypes.string,
+    isUpdating: PropTypes.bool,
+  }).isRequired,
   clientesTodos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     razonSocial: PropTypes.string,
@@ -84,12 +236,20 @@ AgendaClientes.propTypes = {
     provincia: PropTypes.string,
   })),
   getClientesTodos: PropTypes.func,
+  updateCliente: PropTypes.func,
+  clearUpdateErrors: PropTypes.func,
+  deleteCliente: PropTypes.func,
+  clearDeleteErrors: PropTypes.func,
   isActive: PropTypes.bool,
 };
 
 AgendaClientes.defaultProps = {
   clientesTodos: [],
   getClientesTodos: () => {},
+  updateCliente: () => {},
+  clearUpdateErrors: () => {},
+  deleteCliente: () => {},
+  clearDeleteErrors: () => {},
   isActive: true,
 };
 

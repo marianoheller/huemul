@@ -114,7 +114,7 @@ ContactoForm.propTypes = {
   nombre: PropTypes.string,
   mail: PropTypes.string,
   clientes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     razonSocial: PropTypes.string.isRequired,
     telefono: PropTypes.string,
     fax: PropTypes.string,
@@ -125,7 +125,7 @@ ContactoForm.propTypes = {
   onSubmitEdit: PropTypes.func,
   onCancel: PropTypes.func,
   clientesTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   })),
 };
 

@@ -55,7 +55,7 @@ export default function InputAutocomplete({
                   .map((item, index) => (
                     <SC.Item
                       {...getItemProps({ item })}
-                      key={item}
+                      key={`${item}${index}`}
                       highlighted={highlightedIndex === index}
                       selected={selectedItem === item}
                     >
