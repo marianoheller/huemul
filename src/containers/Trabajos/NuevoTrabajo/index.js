@@ -93,10 +93,12 @@ class NuevoTrabajoContainer extends React.Component {
       <SC.NuevoTrabajoContainer>
         <SC.Title>Generar trabajo</SC.Title>
         <NuevoTrabajo
-          handleChange={this.handleChangeTrabajo}
-          handleRemove={this.handleRemove}
           crearTrabajo={crearTrabajo}
           trabajo={trabajo}
+          tiposTrabajos={[
+            { value: 'asd', text: 'qqqqq' },
+            { value: '2asd', text: '2qqqqq' },
+          ]}
           contactos={contactosTodos}
           clientes={clientesTodos}
         />

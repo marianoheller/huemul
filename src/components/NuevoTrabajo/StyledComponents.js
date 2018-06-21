@@ -104,6 +104,7 @@ const __CustomSelect = props => (
   <FormControl className={props.className}>
     <InputLabel htmlFor={`select-${props.name}`}>{props.label}</InputLabel>
     <Select
+      name={props.name}
       value={props.value}
       onChange={props.onChange}
       inputProps={{
