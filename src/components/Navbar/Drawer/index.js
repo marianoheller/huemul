@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
@@ -20,7 +22,7 @@ const icons = {
   clientes: <Business />,
 };
 
-export default class Drawer extends React.Component {
+class Drawer extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -31,7 +33,9 @@ export default class Drawer extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(this.handleTooltipOpen, 1500);
+    /* eslint-disable-next-line react/prop-types */
+    const { pathname } = this.props.location;
+    if (pathname === '/') setTimeout(this.handleTooltipOpen, 1500);
   }
 
   handleTooltipClose() {
@@ -124,3 +128,6 @@ Drawer.defaultProps = {
   name: '',
   items: [],
 };
+
+
+export default withRouter(Drawer);
