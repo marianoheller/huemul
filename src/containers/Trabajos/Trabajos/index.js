@@ -52,6 +52,7 @@ class Trabajos extends React.Component {
       <SC.TrabajosContainer>
         <SC.Title>Buscar</SC.Title>
         <CustomFilter
+          /* TODO: fix autofocus not working */
           autoFocus
           onFilterChange={this.handleChange('searchInput')}
           filter={searchInput}
