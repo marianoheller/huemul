@@ -2,116 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import NuevoTrabajo from '../../../components/NuevoTrabajo';
 import * as actions from '../../../actions/trabajos';
 import * as SC from './StyledComponents';
 
 
-class NuevoTrabajoContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      trabajo: {
-        nombre: '',
-        tipoTrabajo: '',
-        fechaPedido: new Date(),
-        clientes: [],
-        contactos: [],
-      },
-    };
-
-    this.handleChangeTrabajo = this.handleChangeTrabajo.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-  }
-
-  handleChangeTrabajo(name) {
-    switch (name) {
-      case 'contactos':
-        return (val) => {
-          const { contactosTodos } = this.props;
-          const target = contactosTodos.find(c => c.nombre === val);
-          this.setState({
-            ...this.state,
-            trabajo: {
-              ...this.state.trabajo,
-              [name]: [...this.state.trabajo[name], target],
-            },
-          });
-        };
-      case 'clientes':
-        return (val) => {
-          const { clientesTodos } = this.props;
-          const target = clientesTodos.find(c => c.razonSocial === val);
-          this.setState({
-            ...this.state,
-            trabajo: {
-              ...this.state.trabajo,
-              [name]: [...this.state.trabajo[name], target],
-            },
-          });
-        };
-      case 'fechaPedido':
-        return date => this.setState({
-          trabajo: {
-            ...this.state,
-            [name]: date.toDate(),
-          },
-        });
-      case 'nombre':
-      case 'tipoTrabajo':
-        return val => (
-          this.setState({
-            ...this.state,
-            trabajo: {
-              ...this.state.trabajo,
-              [name]: val,
-            },
-          })
-        );
-      default:
-        return () => {};
-    }
-  }
-
-  handleRemove(name) {
-    if (name === 'clientes' || name === 'contactos') {
-      return id => () => (this.setState({
-        ...this.state,
-        trabajo: {
-          ...this.state.trabajo,
-          [name]: this.state.trabajo[name].filter(e => e.id !== id),
-        },
-      }));
-    }
-    return () => {};
-  }
-
-  render() {
-    const { trabajo } = this.state;
-    const {
-      crearTrabajo,
-      contactosTodos,
-      clientesTodos,
-      // eslint-disable-next-line react/prop-types
-      getError,
-    } = this.props;
-    return (
-      <SC.NuevoTrabajoContainer>
-        <SC.Title>Generar trabajo</SC.Title>
-        <NuevoTrabajo
-          crearTrabajo={crearTrabajo}
-          trabajo={trabajo}
-          getError={getError}
-          tiposTrabajos={[
-            { value: 'asd', text: 'qqqqq' },
-            { value: '2asd', text: '2qqqqq' },
-          ]}
-          contactos={contactosTodos}
-          clientes={clientesTodos}
-        />
-      </SC.NuevoTrabajoContainer>
-    );
-  }
+function NuevoTrabajoContainer(props) {
+  const {
+    crearTrabajo,
+    contactosTodos,
+    clientesTodos,
+    error,
+    isFetching,
+  } = props;
+  return (
+    <SC.NuevoTrabajoContainer>
+      <SC.Title>Generar trabajo</SC.Title>
+      <NuevoTrabajo
+        crearTrabajo={crearTrabajo}
+        error={error}
+        tiposTrabajos={[
+          { value: 'asd', text: 'qqqqq' },
+          { value: '2asd', text: '2qqqqq' },
+        ]}
+        contactos={contactosTodos}
+        clientes={clientesTodos}
+      />
+      {Boolean(error) && <SC.Error>{error}</SC.Error>}
+      { Boolean(isFetching) &&
+        <SC.SpinnerContainer>
+          <CircularProgress color="primary" size={40} />
+        </SC.SpinnerContainer>
+      }
+    </SC.NuevoTrabajoContainer>
+  );
 }
 
 NuevoTrabajoContainer.propTypes = {
@@ -124,18 +50,26 @@ NuevoTrabajoContainer.propTypes = {
     id: PropTypes.string,
     razonSocial: PropTypes.string,
   })),
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({}),
+  ]),
+  isFetching: PropTypes.bool,
 };
 
 NuevoTrabajoContainer.defaultProps = {
   crearTrabajo: () => {},
   contactosTodos: [],
   clientesTodos: [],
+  error: null,
+  isFetching: false,
 };
 
 const mapStateToProps = ({ contactos, clientes, trabajos }) => ({
   contactosTodos: contactos.data,
   clientesTodos: clientes.todos.data,
-  getError: () => trabajos.nuevo.error,
+  error: trabajos.nuevo.error,
+  isFetching: trabajos.nuevo.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({

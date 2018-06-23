@@ -28,3 +28,17 @@ export const Title = styled.div`
   color: ${props => props.theme.palette.primary[300]};
   margin-bottom: 2rem;
 `;
+
+export const Error = styled.div`
+  color: ${props => props.theme.status.danger[300]};
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+`;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+`;
