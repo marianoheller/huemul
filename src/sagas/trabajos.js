@@ -63,6 +63,32 @@ export function* getBuscarTrabajos(action) {
   }
 }
 
+/** *****************************************************************
+ * Trabajos generar
+ */
+const postGenerarAPICall = (jwt, data) => axios.post('/api/trabajos', data, {
+  headers: { Authorization: jwt },
+});
+
+export function* generarTrabajoProcess(action) {
+  try {
+    const payload = yield call(
+      postGenerarAPICall,
+      action.jwt,
+      action.data,
+    );
+    // User data
+    if (payload.data) {
+      yield put(actions.trabajoNuevo.success(payload.data));
+    } else {
+      throw Error('Payload erroneous, no data');
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(actions.trabajoNuevo.failure(e.message));
+  }
+}
+
 
 /** *************************************************************** */
 export function* watchTrabajosRequest() {
@@ -75,5 +101,10 @@ export function* watchTrabajosRequest() {
     takeEvery,
     actions.TRABAJOS_BUSCAR.REQUEST,
     getBuscarTrabajos,
+  );
+  yield fork(
+    takeEvery,
+    actions.TRABAJO_NUEVO.REQUEST,
+    generarTrabajoProcess,
   );
 }

@@ -62,7 +62,6 @@ const InnerForm = ({
       },
     ],
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <SC.NuevoTrabajoContainer>
@@ -147,6 +146,7 @@ const InnerForm = ({
             type="submit"
           />
         </SC.Buttonera>
+        {values.getError() && <SC.Error>{values.getError()}</SC.Error>}
       </SC.NuevoTrabajoContainer>
     </form>
   );
@@ -165,6 +165,7 @@ const NuevoTrabajo = withFormik({
     tiposTrabajos: props.tiposTrabajos,
     clientesTodos: props.clientes,
     contactosTodos: props.contactos,
+    getError: props.getError,
   }),
   // Add a custom validation function (this can be async too!)
   validate: (values) => {

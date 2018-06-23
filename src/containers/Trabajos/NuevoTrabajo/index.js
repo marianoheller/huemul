@@ -88,13 +88,20 @@ class NuevoTrabajoContainer extends React.Component {
 
   render() {
     const { trabajo } = this.state;
-    const { crearTrabajo, contactosTodos, clientesTodos } = this.props;
+    const {
+      crearTrabajo,
+      contactosTodos,
+      clientesTodos,
+      // eslint-disable-next-line react/prop-types
+      getError,
+    } = this.props;
     return (
       <SC.NuevoTrabajoContainer>
         <SC.Title>Generar trabajo</SC.Title>
         <NuevoTrabajo
           crearTrabajo={crearTrabajo}
           trabajo={trabajo}
+          getError={getError}
           tiposTrabajos={[
             { value: 'asd', text: 'qqqqq' },
             { value: '2asd', text: '2qqqqq' },
@@ -125,9 +132,10 @@ NuevoTrabajoContainer.defaultProps = {
   clientesTodos: [],
 };
 
-const mapStateToProps = ({ contactos, clientes }) => ({
+const mapStateToProps = ({ contactos, clientes, trabajos }) => ({
   contactosTodos: contactos.data,
   clientesTodos: clientes.todos.data,
+  getError: () => trabajos.nuevo.error,
 });
 
 const mapDispatchToProps = dispatch => ({
