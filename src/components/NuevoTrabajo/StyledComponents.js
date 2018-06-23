@@ -24,6 +24,13 @@ export const NuevoTrabajoContainer = styled.div`
   width: 100%;
 `;
 
+export const Error = styled.div`
+  color: ${props => props.theme.status.danger[300]};
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+`;
+
 export const SectionTitle = styled.div`
   display: flex;
   justify-content: center;

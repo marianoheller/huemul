@@ -86,7 +86,7 @@ const InnerForm = ({
           fullWidth
           autoComplete="off"
         />
-        {touched.nombre && errors.nombre && <div>{errors.nombre}</div>}
+        {touched.nombre && errors.nombre && <SC.Error>{errors.nombre}</SC.Error>}
 
         <SC.CustomSelect
           label="Tipo de trabajo"
@@ -95,7 +95,7 @@ const InnerForm = ({
           onChange={handleChange}
           items={values.tiposTrabajos}
         />
-        {touched.tipoTrabajo && errors.tipoTrabajo && <div>{errors.tipoTrabajo}</div>}
+        {touched.tipoTrabajo && errors.tipoTrabajo && <SC.Error>{errors.tipoTrabajo}</SC.Error>}
 
         <SC.SectionTitle>Clientes</SC.SectionTitle>
         <AssocEdiTable
