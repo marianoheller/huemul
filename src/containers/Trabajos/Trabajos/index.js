@@ -8,11 +8,11 @@ import * as SC from './StyledComponents';
 import * as trabajosActions from '../../../actions/trabajos';
 
 const SEARCH_FIELDS = [
-  { value: 'numero.numero', text: 'Legajo' },
-  { value: 'n', text: 'Nombre' },
-  { value: 'o', text: 'OT/SOT/RUT' },
-  { value: 'cl', text: 'Clientes' },
-  { value: 'co', text: 'Contactos' },
+  { value: 'numero', text: 'Legajo' },
+  { value: 'nombre', text: 'Nombre' },
+  { value: 'ot', text: 'OT/SOT/RUT' },
+  { value: 'cliente', text: 'Clientes' },
+  { value: 'contacto', text: 'Contactos' },
 ];
 
 class Trabajos extends React.Component {
@@ -45,7 +45,7 @@ class Trabajos extends React.Component {
 
   render() {
     const { searchInput, searchField } = this.state;
-    const { trabajos } = this.props;
+    const { trabajos, isFetching } = this.props;
     const selectOptions = SEARCH_FIELDS;
 
     return (
@@ -57,6 +57,7 @@ class Trabajos extends React.Component {
           onFilterChange={this.handleChange('searchInput')}
           filter={searchInput}
           placeholder="Legajo, OT, SOT, RUT, etc..."
+          isLoading={isFetching}
 
           hasSelect
           selectOptions={selectOptions}
@@ -76,22 +77,26 @@ class Trabajos extends React.Component {
 Trabajos.propTypes = {
   trabajos: PropTypes.arrayOf(PropTypes.shape({})),
   buscarTrabajo: PropTypes.func,
+  isFetching: PropTypes.bool,
 };
 
 Trabajos.defaultProps = {
   trabajos: [],
   buscarTrabajo: () => {},
+  isFetching: false,
 };
 
 
 const mapStateToProps = ({ trabajos }) => ({
   trabajos: trabajos.trabajos.data,
+  isFetching: trabajos.trabajos.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  buscarTrabajo: (searchInput, searchField) => (
-    dispatch(trabajosActions.trabajosBuscar.request({ [searchField]: searchInput }))
-  ),
+  buscarTrabajo: (searchInput, searchField) => {
+    if (!searchInput.length) return;
+    dispatch(trabajosActions.trabajosBuscar.request({ [searchField]: searchInput }));
+  },
 });
 
 

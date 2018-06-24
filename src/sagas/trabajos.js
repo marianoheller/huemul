@@ -33,11 +33,20 @@ export function* getTrabajoProcesos(action) {
 /** *****************************************************************
  * Trabajos buscar
  */
+
+const searchFieldMap = {
+  numero: 'numero.numero',
+  nombre: 'nombre.nombre',
+  ot: 'ot.ot',
+  cliente: 'cliente.cliente',
+  contacto: 'contacto.contacto',
+};
+
 const getBuscarAPICall = (jwt, data) => axios.get('/api/trabajos', {
   headers: { Authorization: jwt },
   params: {
     _query: Object.keys(data).reduce((acc, k, i) => {
-      acc += `${k}==${data[k]}`;
+      acc += `${searchFieldMap[k]}==${data[k]}`;
       if (i !== Object.keys(data).length - 1) acc += '&&';
       return acc;
     }, ''),
