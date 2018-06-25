@@ -1,9 +1,10 @@
 import * as actions from '../actions/trabajos';
+import sampleTrabajos from '../sample_output/trabajos.json';
 
 
 const initialState = {
-  trabajos: {
-    data: [],
+  buscar: {
+    data: sampleTrabajos,
     isFetching: false,
     error: null,
   },
@@ -55,8 +56,8 @@ export default (state = initialState, action = {}) => {
     case actions.TRABAJOS_BUSCAR.REQUEST:
       return {
         ...state,
-        trabajos: {
-          ...state.trabajos,
+        buscar: {
+          ...state.buscar,
           isFetching: true,
           error: null,
         },
@@ -64,8 +65,8 @@ export default (state = initialState, action = {}) => {
     case actions.TRABAJOS_BUSCAR.FAILURE:
       return {
         ...state,
-        trabajos: {
-          ...state.trabajos,
+        buscar: {
+          ...state.buscar,
           isFetching: false,
           error: action.errors,
         },
@@ -73,7 +74,8 @@ export default (state = initialState, action = {}) => {
     case actions.TRABAJOS_BUSCAR.SUCCESS:
       return {
         ...state,
-        trabajos: {
+        buscar: {
+          ...state.buscar,
           isFetching: false,
           erros: null,
           data: action.data,

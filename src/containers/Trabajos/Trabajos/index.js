@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import SearchResultsTrabajos from '../../../components/SearchResultsTrabajos';
 import CustomFilter from '../../../components/CustomFilter';
 import * as SC from './StyledComponents';
 
@@ -66,9 +67,7 @@ class Trabajos extends React.Component {
 
           handleCommit={this.handleSearch}
         />
-        <div>
-          {trabajos}
-        </div>
+        <SearchResultsTrabajos results={trabajos} />
       </SC.TrabajosContainer>
     );
   }
@@ -88,8 +87,8 @@ Trabajos.defaultProps = {
 
 
 const mapStateToProps = ({ trabajos }) => ({
-  trabajos: trabajos.trabajos.data,
-  isFetching: trabajos.trabajos.isFetching,
+  trabajos: trabajos.buscar.data,
+  isFetching: trabajos.buscar.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
