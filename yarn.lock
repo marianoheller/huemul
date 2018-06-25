@@ -9,6 +9,13 @@
     "@babel/types" "7.0.0-beta.32"
     lodash "^4.2.0"
 
+"@babel/runtime@7.0.0-beta.49":
+  version "7.0.0-beta.49"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.49.tgz#03b3bf07eb982072c8e851dd2ddd5110282e61bf"
+  dependencies:
+    core-js "^2.5.6"
+    regenerator-runtime "^0.11.1"
+
 "@babel/runtime@^7.0.0-beta.42":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.46.tgz#466a9c0498f6d12d054a185981eef742d59d4871"
@@ -1932,6 +1939,10 @@ core-js@^2.4.0, core-js@^2.5.3:
 core-js@^2.5.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
+
+core-js@^2.5.6:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -6699,6 +6710,12 @@ react-spinners@^0.3.2:
     prop-types "^15.5.10"
     react-emotion "^9.1.1"
     recompose "0.26.0"
+
+react-spring@^5.3.18:
+  version "5.3.18"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-5.3.18.tgz#39cf98265991529799898455210164123a0787be"
+  dependencies:
+    "@babel/runtime" "7.0.0-beta.49"
 
 react-swipeable-views-core@^0.12.11:
   version "0.12.11"

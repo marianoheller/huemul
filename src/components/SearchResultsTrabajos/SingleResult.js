@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Transition, animated } from 'react-spring';
+
 import { adjustHexOpacity } from '../../utils';
 
 const ResultContainer = styled.div`
@@ -28,6 +30,8 @@ const ResultContainer = styled.div`
 
 export default function SingleResult(props) {
   const {
+    isActive,
+    onClick,
     legajo,
     nombre,
     fechaPedido,
@@ -35,17 +39,38 @@ export default function SingleResult(props) {
     contactos,
   } = props;
   return (
-    <ResultContainer>
-      <div>Legajo: {legajo}</div>
-      <div>Nombre: {nombre}</div>
-      <div>Fecha pedido: {fechaPedido}</div>
-      <div>Clientes: {clientes.length}</div>
-      <div>Contactos: {contactos.length}</div>
+    <ResultContainer onClick={onClick}>
+      <Transition
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+      >
+        { style => (
+          <animated.div {...style}>
+            {!isActive ?
+              <div>
+                <div>Legajo: {legajo}</div>
+                <div>Nombre: {nombre}</div>
+              </div>
+              :
+              <div>
+                <div>Legajo: {legajo}</div>
+                <div>Nombre: {nombre}</div>
+                <div>Fecha pedido: {fechaPedido}</div>
+                <div>Clientes: {clientes.length}</div>
+                <div>Contactos: {contactos.length}</div>
+              </div>
+            }
+          </animated.div>
+        )}
+      </Transition>
     </ResultContainer>
   );
 }
 
 SingleResult.propTypes = {
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
   legajo: PropTypes.string.isRequired,
   nombre: PropTypes.string.isRequired,
   fechaPedido: PropTypes.oneOfType([
@@ -54,4 +79,9 @@ SingleResult.propTypes = {
   ]).isRequired,
   clientes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   contactos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
+
+SingleResult.defaultProps = {
+  isActive: false,
+  onClick: () => {},
 };

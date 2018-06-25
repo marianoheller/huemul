@@ -11,15 +11,38 @@ const ResultsContainer = styled.div`
   margin-top: 2rem;
 `;
 
-export default function SearchResultsTrabajos(props) {
-  const { results } = props;
-  return (
-    <ResultsContainer>
-      {results.map(r => (
-        <SingleResult key={r.id} {...r} />
-      ))}
-    </ResultsContainer>
-  );
+export default class SearchResultsTrabajos extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      activeIndex: null,
+    };
+    this.setActive = this.setActive.bind(this);
+  }
+
+  setActive(i) {
+    return () => {
+      const index = this.state.activeIndex === i ? null : i;
+      this.setState({ activeIndex: index });
+    };
+  }
+
+  render() {
+    const { results } = this.props;
+    const { activeIndex } = this.state;
+    return (
+      <ResultsContainer>
+        {results.map((r, i) => (
+          <SingleResult
+            key={r.id}
+            isActive={i === activeIndex}
+            onClick={this.setActive(i)}
+            {...r}
+          />
+        ))}
+      </ResultsContainer>
+    );
+  }
 }
 
 SearchResultsTrabajos.propTypes = {
