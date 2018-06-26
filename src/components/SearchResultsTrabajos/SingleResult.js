@@ -41,28 +41,36 @@ export default function SingleResult(props) {
   return (
     <ResultContainer onClick={onClick}>
       <Transition
-        from={{ opacity: 0 }}
-        enter={{ opacity: 1 }}
-        leave={{ opacity: 0 }}
+        from={{ opacity: 0, height: 0 }}
+        enter={{ opacity: 1, height: 20 }}
+        leave={{ opacity: 0, height: 0 }}
       >
-        { style => (
-          <animated.div {...style}>
-            {!isActive ?
-              <div>
-                <div>Legajo: {legajo}</div>
-                <div>Nombre: {nombre}</div>
-              </div>
-              :
-              <div>
+        {isActive ?
+          // Gotta use brackets cuz babel doesn't like terneary + arrow functions wo parenthesis
+          // Fixed in babel 7
+          /* eslint-disable arrow-body-style */
+          (style) => {
+            return (
+              <animated.div style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
                 <div>Fecha pedido: {fechaPedido}</div>
                 <div>Clientes: {clientes.length}</div>
                 <div>Contactos: {contactos.length}</div>
-              </div>
-            }
-          </animated.div>
-        )}
+              </animated.div>
+            );
+          }
+        :
+          /* eslint-disable arrow-body-style */
+          (style) => {
+            return (
+              <animated.div style={style}>
+                <div>Legajo: {legajo}</div>
+                <div>Nombre: {nombre}</div>
+              </animated.div>
+            );
+          }
+        }
       </Transition>
     </ResultContainer>
   );

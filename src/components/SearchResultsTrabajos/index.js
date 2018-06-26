@@ -1,8 +1,12 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import SingleResult from './SingleResult';
+import CustomPaginate from '../CustomPaginate';
+
+const RESULTS_PER_PAGE = 10;
 
 const ResultsContainer = styled.div`
   display: flex;
@@ -16,8 +20,13 @@ export default class SearchResultsTrabajos extends React.Component {
     super();
     this.state = {
       activeIndex: null,
+      page: 0,
+      offsetIndex: 0,
     };
+    this.paginateRef = React.createRef();
+
     this.setActive = this.setActive.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   setActive(i) {
@@ -27,12 +36,28 @@ export default class SearchResultsTrabajos extends React.Component {
     };
   }
 
+
+  handlePageClick(data) {
+    const { selected } = data;
+    const offsetIndex = Math.ceil(selected * RESULTS_PER_PAGE);
+
+    this.setState({
+      offsetIndex,
+      page: selected,
+    }, () => {
+      // eslint-disable-next-line react/no-find-dom-node
+      const node = ReactDom.findDOMNode(this.paginateRef.current);
+      window.scrollTo(0, node.offsetTop);
+    });
+  }
+
+
   render() {
     const { results } = this.props;
-    const { activeIndex } = this.state;
+    const { activeIndex, offsetIndex, page } = this.state;
     return (
       <ResultsContainer>
-        {results.map((r, i) => (
+        {results.slice(offsetIndex, offsetIndex + RESULTS_PER_PAGE).map((r, i) => (
           <SingleResult
             key={r.id}
             isActive={i === activeIndex}
@@ -40,6 +65,12 @@ export default class SearchResultsTrabajos extends React.Component {
             {...r}
           />
         ))}
+        <CustomPaginate
+          ref={this.paginateRef}
+          pageCount={Math.ceil(results.length / RESULTS_PER_PAGE)}
+          onPageChange={this.handlePageClick}
+          forcePage={page}
+        />
       </ResultsContainer>
     );
   }
