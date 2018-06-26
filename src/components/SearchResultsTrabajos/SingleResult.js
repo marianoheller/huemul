@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Transition, animated } from 'react-spring';
+import { Transition, config } from 'react-spring';
 
 import { adjustHexOpacity } from '../../utils';
 
 const ResultContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -26,54 +27,75 @@ const ResultContainer = styled.div`
     background-color: ${props => props.theme.palette.primary[300]};
     color: white;
   }
+
+  & > div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
 `;
 
-export default function SingleResult(props) {
-  const {
-    isActive,
-    onClick,
-    legajo,
-    nombre,
-    fechaPedido,
-    clientes,
-    contactos,
-  } = props;
-  return (
-    <ResultContainer onClick={onClick}>
-      <Transition
-        from={{ opacity: 0, height: 0 }}
-        enter={{ opacity: 1, height: 20 }}
-        leave={{ opacity: 0, height: 0 }}
-      >
+export default class SingleResult extends React.Component {
+  constructor() {
+    super();
+    this.renderCount = 0;
+  }
+  componentDidMount() {
+    this.renderCount = this.renderCount + 1;
+  }
+
+  componentDidUpdate() {
+    this.renderCount = this.renderCount + 1;
+  }
+
+  render() {
+    const {
+      isActive,
+      onClick,
+      legajo,
+      nombre,
+      fechaPedido,
+      clientes,
+      contactos,
+    } = this.props;
+    return (
+      <ResultContainer onClick={onClick}>
         {isActive ?
-          // Gotta use brackets cuz babel doesn't like terneary + arrow functions wo parenthesis
-          // Fixed in babel 7
-          /* eslint-disable arrow-body-style */
-          (style) => {
-            return (
-              <animated.div style={style}>
+          <Transition
+            from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+            enter={{ height: 'auto', opacity: 1 }}
+            leave={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+            config={config.gentle}
+          >
+            {style => (
+              <div style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
                 <div>Fecha pedido: {fechaPedido}</div>
                 <div>Clientes: {clientes.length}</div>
                 <div>Contactos: {contactos.length}</div>
-              </animated.div>
-            );
-          }
+              </div>
+            )}
+          </Transition>
         :
-          /* eslint-disable arrow-body-style */
-          (style) => {
-            return (
-              <animated.div style={style}>
+          <Transition
+            from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+            enter={{ height: 'auto', opacity: 1 }}
+            leave={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+            config={config.gentle}
+          >
+            {style => (
+              <div style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
-              </animated.div>
-            );
-          }
+              </div>
+            )}
+          </Transition>
         }
-      </Transition>
-    </ResultContainer>
-  );
+      </ResultContainer>
+    );
+  }
 }
 
 SingleResult.propTypes = {
