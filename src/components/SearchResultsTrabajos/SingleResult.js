@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Spring, config } from 'react-spring';
+import { ArrowForward } from '@material-ui/icons';
 
 import { adjustHexOpacity } from '../../utils';
 
-const ResultContainer = styled.div`
+const ResultMainContainer = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: flex-start;
   flex: 1;
   padding: 0.5rem 1rem;
   text-align: left;
@@ -37,6 +39,31 @@ const ResultContainer = styled.div`
   }
 `;
 
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+/* eslint-disable-next-line react/prop-types */
+const ArrowForwardWrapper = ({ style }) => {
+  const { rotation, ...rest } = style;
+  return (
+    <div
+      style={{ transform: `rotate(${rotation})` }}
+      {...rest}
+    >
+      <ArrowForward />
+    </div>
+  );
+};
+
+
 export default class SingleResult extends React.Component {
   constructor() {
     super();
@@ -61,7 +88,16 @@ export default class SingleResult extends React.Component {
       contactos,
     } = this.props;
     return (
-      <ResultContainer onClick={onClick}>
+      <ResultMainContainer onClick={onClick}>
+        <IconContainer>
+          <Spring
+            to={{
+              rotation: isActive ? '90deg' : '0deg',
+            }}
+          >
+            {style => <ArrowForwardWrapper style={style} />}
+          </Spring>
+        </IconContainer>
         <Spring
           from={{}} /* Empty initial "from" so it starts at the right height */
           to={isActive ? { height: 'auto', opacity: 1 } : { height: 'auto', opacity: 1.1 }}
@@ -71,27 +107,27 @@ export default class SingleResult extends React.Component {
           {/* eslint-disable-next-line arrow-body-style */}
           {isActive ? (style) => {
             return (
-              <div style={style}>
+              <ContentWrapper style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
                 <div>Fecha pedido: {fechaPedido}</div>
                 <div>Clientes: {clientes.length}</div>
                 <div>Contactos: {contactos.length}</div>
-              </div>
+              </ContentWrapper>
             );
           }
           :
           /* eslint-disable-next-line arrow-body-style */
           (style) => {
             return (
-              <div style={style}>
+              <ContentWrapper style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
-              </div>
+              </ContentWrapper>
             );
           }}
         </Spring>
-      </ResultContainer>
+      </ResultMainContainer>
     );
   }
 }
