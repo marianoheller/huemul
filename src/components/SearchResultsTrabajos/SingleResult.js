@@ -63,10 +63,11 @@ export default class SingleResult extends React.Component {
     return (
       <ResultContainer onClick={onClick}>
         <Spring
-          from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+          from={{}} /* Empty initial "from" so it starts at the right height */
           to={isActive ? { height: 'auto', opacity: 1 } : { height: 'auto', opacity: 1.1 }}
           config={config.gentle}
         >
+          {/* Gotta disable eslint and do brackets cuz babel doesnt like ternary with arrow func */}
           {/* eslint-disable-next-line arrow-body-style */}
           {isActive ? (style) => {
             return (

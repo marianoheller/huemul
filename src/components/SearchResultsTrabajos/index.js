@@ -41,9 +41,11 @@ export default class SearchResultsTrabajos extends React.Component {
     const { selected } = data;
     const offsetIndex = Math.ceil(selected * RESULTS_PER_PAGE);
 
+    if (selected === this.state.page) return;
     this.setState({
       offsetIndex,
       page: selected,
+      activeIndex: null,
     }, () => {
       // eslint-disable-next-line react/no-find-dom-node
       const node = ReactDom.findDOMNode(this.paginateRef.current);
