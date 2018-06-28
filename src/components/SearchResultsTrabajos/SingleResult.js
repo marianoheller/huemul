@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Transition, config } from 'react-spring';
+import { Spring, config } from 'react-spring';
 
 import { adjustHexOpacity } from '../../utils';
 
@@ -14,6 +14,7 @@ const ResultContainer = styled.div`
   text-align: left;
   cursor: pointer;
   user-select: none;
+  overflow: hidden;
 
   border-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.5)};
   border-width: 1px;
@@ -29,7 +30,7 @@ const ResultContainer = styled.div`
   }
 
   & > div {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     left: 0;
@@ -61,14 +62,14 @@ export default class SingleResult extends React.Component {
     } = this.props;
     return (
       <ResultContainer onClick={onClick}>
-        {isActive ?
-          <Transition
-            from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
-            enter={{ height: 'auto', opacity: 1 }}
-            leave={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
-            config={config.gentle}
-          >
-            {style => (
+        <Spring
+          from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
+          to={isActive ? { height: 'auto', opacity: 1 } : { height: 'auto', opacity: 1.1 }}
+          config={config.gentle}
+        >
+          {/* eslint-disable-next-line arrow-body-style */}
+          {isActive ? (style) => {
+            return (
               <div style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
@@ -76,23 +77,19 @@ export default class SingleResult extends React.Component {
                 <div>Clientes: {clientes.length}</div>
                 <div>Contactos: {contactos.length}</div>
               </div>
-            )}
-          </Transition>
-        :
-          <Transition
-            from={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
-            enter={{ height: 'auto', opacity: 1 }}
-            leave={this.renderCount === 0 ? {} : { height: 0, opacity: 0 }}
-            config={config.gentle}
-          >
-            {style => (
+            );
+          }
+          :
+          /* eslint-disable-next-line arrow-body-style */
+          (style) => {
+            return (
               <div style={style}>
                 <div>Legajo: {legajo}</div>
                 <div>Nombre: {nombre}</div>
               </div>
-            )}
-          </Transition>
-        }
+            );
+          }}
+        </Spring>
       </ResultContainer>
     );
   }

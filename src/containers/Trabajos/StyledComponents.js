@@ -4,22 +4,22 @@ import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
 
 export const MainContainer = styled.div`
-background-color: ${props => props.theme.background.primary};
-width: 100vw;
+  background-color: ${props => props.theme.background.primary};
+  width: 100%;
 `;
 
 export const StyledTabs = styled(Tabs)`
-background-color: ${props => props.theme.background.secondary};
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 export const TabContainer = styled.div`
-background-color: ${props => props.theme.background.primary};
-text-align: center;
-color: ${props => props.theme.palette.secondary[300]};
+  background-color: ${props => props.theme.background.primary};
+  text-align: center;
+  color: ${props => props.theme.palette.secondary[300]};
 `;
 
 export const StyledTab = styled(Tab)`
-color: ${({ selected, theme }) => (selected ?
+  color: ${({ selected, theme }) => (selected ?
     theme.palette.primary[300]
     :
     theme.palette.secondary[300])} !important;
