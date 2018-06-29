@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Spring, config } from 'react-spring';
-import { ArrowForward } from '@material-ui/icons';
+import { KeyboardArrowRight } from '@material-ui/icons';
 
 import { adjustHexOpacity } from '../../utils';
 
@@ -12,7 +12,7 @@ const ResultMainContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
   text-align: left;
   cursor: pointer;
   user-select: none;
@@ -42,23 +42,22 @@ const ResultMainContainer = styled.div`
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+  padding: 0 0.25rem;
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 /* eslint-disable-next-line react/prop-types */
-const ArrowForwardWrapper = ({ style }) => {
+const ArrowRightWrapper = ({ style }) => {
   const { rotation, ...rest } = style;
   return (
-    <div
-      style={{ transform: `rotate(${rotation})` }}
-      {...rest}
-    >
-      <ArrowForward />
+    <div {...rest} >
+      <KeyboardArrowRight style={{ transform: `rotate(${rotation})` }} />
     </div>
   );
 };
@@ -95,7 +94,7 @@ export default class SingleResult extends React.Component {
               rotation: isActive ? '90deg' : '0deg',
             }}
           >
-            {style => <ArrowForwardWrapper style={style} />}
+            {style => <ArrowRightWrapper style={style} />}
           </Spring>
         </IconContainer>
         <Spring

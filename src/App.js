@@ -2,19 +2,52 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Loadable from 'react-loadable';
 
-import Login from './containers/Login';
-import Logout from './containers/Logout';
-import Landing from './containers/Landing';
-import Planificador from './containers/Planificador';
-import CalendarioAGH from './containers/CalendarioAGH';
-import Trabajos from './containers/Trabajos';
-import Agenda from './containers/Agenda';
-
-import Navbar from './components/Navbar';
-
+import Loading from './components/Loading';
 import * as userActions from './actions/user';
 
+
+const Login = Loadable({
+  loader: () => import('./containers/Login'),
+  loading: Loading,
+  delay: 500,
+});
+const Logout = Loadable({
+  loader: () => import('./containers/Logout'),
+  loading: Loading,
+  delay: 500,
+});
+const Landing = Loadable({
+  loader: () => import('./containers/Landing'),
+  loading: Loading,
+  delay: 500,
+});
+const Planificador = Loadable({
+  loader: () => import('./containers/Planificador'),
+  loading: Loading,
+  delay: 500,
+});
+const CalendarioAGH = Loadable({
+  loader: () => import('./containers/CalendarioAGH'),
+  loading: Loading,
+  delay: 500,
+});
+const Trabajos = Loadable({
+  loader: () => import('./containers/Trabajos'),
+  loading: Loading,
+  delay: 500,
+});
+const Agenda = Loadable({
+  loader: () => import('./containers/Agenda'),
+  loading: Loading,
+  delay: 500,
+});
+const Navbar = Loadable({
+  loader: () => import('./components/Navbar'),
+  loading: Loading,
+  delay: 500,
+});
 
 export class AppComponent extends React.Component {
   componentDidMount() {

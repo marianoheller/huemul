@@ -19,6 +19,7 @@
     "react-big-calendar": "^0.19.0",
     "react-confirm-alert": "^2.0.2",
     "react-dom": "^16.3.1",
+    "react-loadable": "^5.4.0",
     "react-modal": "^3.4.4",
     "react-paginate": "^5.2.3",
     "react-redux": "^5.0.7",
@@ -31,10 +32,12 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "roboto-fontface": "^0.9.0",
+    "source-map-explorer": "^1.5.0",
     "styled-components": "^3.2.5"
   },
   "scripts": {
     "lint": "node_modules/.bin/eslint src --quiet",
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --silent",
@@ -44,6 +47,7 @@
     "cypress:open": "cypress open"
   },
   "devDependencies": {
+    "babel-eslint": "8",
     "cypress": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
