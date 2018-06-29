@@ -72,34 +72,10 @@ export class AppComponent extends React.Component {
         <React.Fragment>
           <Switch>
             <Route path="/login" component={Login} />
-            <Route
-              path="/planificador"
-              render={() =>
-              /* if(!isAuthenticated) return <Redirect to="/" /> */
-                <Planificador />
-            }
-            />
-            <Route
-              path="/calendarioAGH"
-              render={() =>
-              /* if(!isAuthenticated) return <Redirect to="/" /> */
-                <CalendarioAGH />
-            }
-            />
-            <Route
-              path="/trabajos"
-              render={() =>
-              /* if(!isAuthenticated) return <Redirect to="/" /> */
-                <Trabajos />
-            }
-            />
-            <Route
-              path="/agenda"
-              render={() =>
-              /* if(!isAuthenticated) return <Redirect to="/" /> */
-                <Agenda />
-            }
-            />
+            <Route path="/planificador" component={Planificador} />
+            <Route path="/calendarioAGH" component={CalendarioAGH} />
+            <Route path="/trabajos" component={Trabajos} />
+            <Route path="/agenda" component={Agenda} />
             <Route path="/logout" component={Logout} />
             <Route path="/" exact component={Landing} />
             <Route
@@ -119,7 +95,7 @@ AppComponent.propTypes = {
   buildVersion: PropTypes.string,
   username: PropTypes.string,
   userId: PropTypes.oneOfType([
-    PropTypes.object, // eslint-disable-line no-bitwise
+    PropTypes.object,
     PropTypes.number,
   ]),
   getUserInfo: PropTypes.func,
