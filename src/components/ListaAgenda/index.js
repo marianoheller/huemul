@@ -115,7 +115,7 @@ const ListaItem = function __ListaItem(props) {
 
 ListaAgenda.propTypes = {
   itemsPerPage: PropTypes.number,
-  items: PropTypes.arrayOf(PropTypes.shape({})),
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fieldNameMap: PropTypes.shape({}),
   tableHeaders: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string,
@@ -128,7 +128,6 @@ ListaAgenda.propTypes = {
 
 ListaAgenda.defaultProps = {
   itemsPerPage: 5,
-  items: [],
   fieldNameMap: {},
   tableHeaders: [],
   tableDataField: '',

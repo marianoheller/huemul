@@ -22,7 +22,7 @@ export default class SinOT extends React.Component {
 
   handleSearch() {
     const { searchInput } = this.state;
-    console.log('BVUSCARR', searchInput);
+    return searchInput;
   }
 
   render() {
@@ -39,7 +39,13 @@ export default class SinOT extends React.Component {
           placeholder="Filtrar"
         />
         <div>
-          {sinOT}
+          {sinOT.length !== 0 ?
+          sinOT
+          :
+          <SC.NoFoundContainer>
+            No se han encontrado registros
+          </SC.NoFoundContainer>
+          }
         </div>
       </SC.SinOTContainer>
     );

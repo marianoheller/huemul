@@ -1,5 +1,5 @@
 import { call, put, takeEvery, fork } from 'redux-saga/effects';
-import axios from 'axios';
+import { axios } from '../config';
 
 import * as userActions from '../actions/user';
 

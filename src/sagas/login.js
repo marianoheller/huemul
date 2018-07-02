@@ -1,6 +1,6 @@
 import { call, put, takeEvery, fork } from 'redux-saga/effects';
 import qs from 'qs';
-import axios from 'axios';
+import { axios } from '../config';
 
 import * as loginActions from '../actions/login';
 import * as userActions from '../actions/user';

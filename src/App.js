@@ -45,7 +45,7 @@ const Agenda = Loadable({
 });
 const Navbar = Loadable({
   loader: () => import('./components/Navbar'),
-  loading: Loading,
+  loading: () => null,
   delay: 500,
 });
 

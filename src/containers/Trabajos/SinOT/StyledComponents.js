@@ -28,3 +28,11 @@ export const Title = styled.div`
   color: ${props => props.theme.palette.primary[300]};
   margin-bottom: 2rem;
 `;
+
+export const NoFoundContainer = styled.div`
+  margin-top: 2rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+`;

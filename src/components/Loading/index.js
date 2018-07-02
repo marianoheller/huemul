@@ -5,9 +5,8 @@ import Spinner from '../Spinner';
 
 const SpinnerWrapper = styled.div`
   display: flex;
+  flex: 1;
   justify-content: center;
-  position: relative;
-  display: inline-block;
   margin-top: 3rem;
   & .tooltip {
     visibility: ${({ hover }) => (hover ? 'visible' : 'hidden')};
@@ -15,8 +14,18 @@ const SpinnerWrapper = styled.div`
   }
 `;
 
+const ErrorContainer = styled.div`
+  margin-top: 2rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  color: ${props => props.theme.palette.secondary[300]};
+`;
+
+
 const LoadingComponent = ({ pastDelay, error }) => {
-  if (error) return <div>Sorry, there was a problem loading the page.</div>;
+  if (error) return <ErrorContainer>Sorry, there was a problem loading the page.</ErrorContainer>;
   else if (pastDelay) {
     return (
       <SpinnerWrapper>
