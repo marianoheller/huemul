@@ -1,5 +1,5 @@
 import * as actions from '../actions/calendarioAGH';
-import csaPayload from '../sample_output/externoCalendarioCSA.json';
+// import csaPayload from '../sample_output/externoCalendarioCSA.json';
 
 
 const parseEvents = data => data.map(ev => ({
@@ -16,8 +16,8 @@ const parseEvents = data => data.map(ev => ({
 }));
 
 const initialState = {
-  // events: [],
-  events: parseEvents(csaPayload),
+  events: [],
+  // events: parseEvents(csaPayload),
   isFetching: false,
   error: null,
   filter: '',

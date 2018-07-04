@@ -1,5 +1,4 @@
 import * as actions from '../actions/planificador';
-import planifPayload from '../sample_output/calendarioPlanificacion.json';
 
 
 const parseEvents = data => data.map(ev => ({
@@ -17,8 +16,8 @@ const parseEvents = data => data.map(ev => ({
 
 
 const initialState = {
-  // events: [],
-  events: parseEvents(planifPayload.eventos),
+  events: [],
+  // events: parseEvents(planifPayload.eventos),
   isFetching: false,
   error: null,
 };

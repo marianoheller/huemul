@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import { HashLoader } from 'react-spinners';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const SpinnerContainer = styled.div`
@@ -14,7 +14,7 @@ const LoaderContainer = styled.div`
     justify-content: center;
 `;
 
-const Loader = props => <LoaderContainer><HashLoader {...props} /></LoaderContainer>;
+const Loader = props => <LoaderContainer><CircularProgress {...props} color="primary" size={50} /></LoaderContainer>;
 
 const StyledLoader = styled(Loader)`
     display: flex;
@@ -30,7 +30,7 @@ const Message = styled.div`
 
 export default withTheme(props => (
   <SpinnerContainer id="spijnnerContainer">
-    <StyledLoader color={props.theme.palette.primary[300]} />
+    <StyledLoader />
     <Message>{props.message}</Message>
   </SpinnerContainer>
 ));

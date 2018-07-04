@@ -1,18 +1,16 @@
 import * as actions from '../actions/clientes';
-import sampleActivos from '../sample_output/clientesActivos.json';
-import sampleTodos from '../sample_output/clientesTodos.json';
 
 
 const initialState = {
   activos: {
-    // data: [],
-    data: sampleActivos,
+    data: [],
+    // data: sampleActivos,
     isFetching: false,
     error: null,
   },
   todos: {
-    // data: [],
-    data: sampleTodos,
+    data: [],
+    // data: sampleTodos,
     isFetching: false,
     error: null,
   },

@@ -15,7 +15,7 @@ const EventWrapper = styled.div`
   text-align: center;
   
   border-radius: 5px;
-  background-color: ${props => props.theme.palette.event[props.type] || 'black'};
+  background-color: ${props => props.theme.palette.eventScale(props.type) || 'black'};
   padding: 0 1rem;
   border: 1px solid ${props => props.theme.palette.secondary[700]};
 `;

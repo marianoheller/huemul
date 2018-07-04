@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 
 import ModalConfirm from '../../../components/ModalConfirm';
 import CustomFilter from '../../../components/CustomFilter';

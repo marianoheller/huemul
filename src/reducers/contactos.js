@@ -1,10 +1,9 @@
 import * as actions from '../actions/contactos';
-import sampleTodos from '../sample_output/contactosTodos.json';
 
 
 const initialState = {
-  // data: [],
-  data: sampleTodos,
+  data: [],
+  // data: sampleTodos,
   isFetching: false,
   update: {
     isUpdating: false,

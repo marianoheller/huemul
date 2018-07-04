@@ -1,10 +1,10 @@
 import * as actions from '../actions/trabajos';
-import sampleTrabajos from '../sample_output/trabajos.json';
 
 
 const initialState = {
   buscar: {
-    data: sampleTrabajos,
+    // data: sampleTrabajos,
+    data: [],
     isFetching: false,
     error: null,
   },

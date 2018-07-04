@@ -6,16 +6,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blueGrey, green, orange } from '@material-ui/core/colors';
-import googlePallete from 'google-palette';
+import { scaleOrdinal } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './App';
 import './index.css';
-import * as config from './config';
 
-const eventColors = googlePallete('tol-rainbow', config.EVENT_TYPES.length).map(c => `#${c}`);
+// const eventColors = googlePallete('tol-rainbow', config.EVENT_TYPES.length).map(c => `#${c}`);
 
 const store = configureStore({});
 const theme = {
@@ -26,7 +26,8 @@ const theme = {
   palette: {
     primary: green,
     secondary: blueGrey,
-    event: config.EVENT_TYPES.reduce((acc, type, i) => ({ ...acc, [type]: eventColors[i] }), {}),
+    // event: config.EVENT_TYPES.reduce((acc, type, i) => ({ ...acc, [type]: eventColors[i] }), {}),
+    eventScale: scaleOrdinal(schemeCategory10),
   },
   status: {
     danger: orange,

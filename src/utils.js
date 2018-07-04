@@ -1,4 +1,9 @@
-import _ from 'lodash';
+import forEach from 'lodash.foreach';
+import get from 'lodash.get';
+import flatten from 'lodash.flatten';
+import reduce from 'lodash.reduce';
+import uniqWith from 'lodash.uniqwith';
+import isEqual from 'lodash.isequal';
 
 
 /** *************************************************
@@ -59,17 +64,16 @@ export function uniq(a) {
 
 export function filterAgenda(filter, todos, params) {
   const lFilter = filter.toLowerCase();
-  const filtered = _(todos)
-    .reduce((acc, contacto) => {
-      _.forEach(params, (param, indexParam) => {
-        const val = _.get(contacto, param);
-        if (typeof val === 'object') return;
-        if (typeof val === 'undefined') return;
-        if (typeof val === 'string' && val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(lFilter)) {
-          acc[indexParam].push(contacto);
-        }
-      });
-      return acc;
-    }, Array(params.length).fill([]));
-  return _.uniqWith(_.flatten(filtered), _.isEqual);
+  const filtered = reduce(todos, (acc, contacto) => {
+    forEach(params, (param, indexParam) => {
+      const val = get(contacto, param);
+      if (typeof val === 'object') return;
+      if (typeof val === 'undefined') return;
+      if (typeof val === 'string' && val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(lFilter)) {
+        acc[indexParam].push(contacto);
+      }
+    });
+    return acc;
+  }, Array(params.length).fill([]));
+  return uniqWith(flatten(filtered), isEqual);
 }
