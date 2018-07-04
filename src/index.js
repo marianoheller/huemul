@@ -9,7 +9,7 @@ import { blueGrey, green, orange } from '@material-ui/core/colors';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 
-import { homepage } from '../package.json';
+import { basename } from './config';
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -39,7 +39,7 @@ const muiTheme = createMuiTheme(theme);
 
 render(
   <Provider store={store}>
-    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? homepage : ''}>
+    <BrowserRouter basename={basename}>
       <MuiThemeProvider theme={muiTheme}>
         <ThemeProvider theme={theme}>
           <App />
