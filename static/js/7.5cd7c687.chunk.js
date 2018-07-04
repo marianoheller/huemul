@@ -1,0 +1,2 @@
+webpackJsonp([7],{609:function(e,t,u){"use strict";function n(e){return(0,e.userLogout)(),r.a.createElement(c.c,{to:"/"})}Object.defineProperty(t,"__esModule",{value:!0});var o=u(3),r=u.n(o),c=u(127),f=u(125),s=u(4),a=u.n(s),i=u(53);n.propTypes={userLogout:a.a.func},n.defaultProps={userLogout:function(){}};var p=function(){return{}},g=function(e){return{userLogout:function(){return e(i.g())}}};t.default=Object(f.b)(p,g)(n)}});
+//# sourceMappingURL=7.5cd7c687.chunk.js.map
