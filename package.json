@@ -2,7 +2,7 @@
   "name": "huemul",
   "version": "0.1.0",
   "proxy": "http://localhost:3001",
-  "homepage": "http://myname.github.io/huemul",
+  "homepage": "https://marianoheller.github.io/huemul",
   "dependencies": {
     "@material-ui/core": "^1.0.0-rc.0",
     "@material-ui/icons": "^1.0.0-beta.42",
