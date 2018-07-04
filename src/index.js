@@ -9,13 +9,13 @@ import { blueGrey, green, orange } from '@material-ui/core/colors';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 
+import { homepage } from '../package.json';
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './App';
 import './index.css';
 
-// const eventColors = googlePallete('tol-rainbow', config.EVENT_TYPES.length).map(c => `#${c}`);
 
 const store = configureStore({});
 const theme = {
@@ -26,7 +26,6 @@ const theme = {
   palette: {
     primary: green,
     secondary: blueGrey,
-    // event: config.EVENT_TYPES.reduce((acc, type, i) => ({ ...acc, [type]: eventColors[i] }), {}),
     eventScale: scaleOrdinal(schemeCategory10),
   },
   status: {
@@ -40,7 +39,7 @@ const muiTheme = createMuiTheme(theme);
 
 render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? homepage : ''}>
       <MuiThemeProvider theme={muiTheme}>
         <ThemeProvider theme={theme}>
           <App />
