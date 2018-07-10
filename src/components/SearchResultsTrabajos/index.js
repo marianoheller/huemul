@@ -15,6 +15,15 @@ const ResultsContainer = styled.div`
   margin-top: 2rem;
 `;
 
+const NoFoundContainer = styled.div`
+  margin-top: 2rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+`;
+
+
 export default class SearchResultsTrabajos extends React.Component {
   constructor() {
     super();
@@ -67,12 +76,18 @@ export default class SearchResultsTrabajos extends React.Component {
             {...r}
           />
         ))}
-        <CustomPaginate
-          ref={this.paginateRef}
-          pageCount={Math.ceil(results.length / RESULTS_PER_PAGE)}
-          onPageChange={this.handlePageClick}
-          forcePage={page}
-        />
+        { results.length ?
+          <CustomPaginate
+            ref={this.paginateRef}
+            pageCount={Math.ceil(results.length / RESULTS_PER_PAGE)}
+            onPageChange={this.handlePageClick}
+            forcePage={page}
+          />
+          :
+          <NoFoundContainer>
+            No se han encontrado registros
+          </NoFoundContainer>
+        }
       </ResultsContainer>
     );
   }

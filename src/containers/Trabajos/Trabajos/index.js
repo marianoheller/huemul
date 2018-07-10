@@ -30,6 +30,11 @@ class Trabajos extends React.Component {
     this.handleSeachFieldChange = this.handleSeachFieldChange.bind(this);
   }
 
+  componentDidMount() {
+    const { buscarTrabajo } = this.props;
+    buscarTrabajo(' ', 'nombre');
+  }
+
   handleChange(name) {
     return input => this.setState({ [name]: input });
   }
