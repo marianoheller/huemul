@@ -71,6 +71,7 @@ class Drawer extends React.Component {
           <IconButton
             aria-owns={isOpen ? `drawer-menu-${name}` : null}
             aria-haspopup="true"
+            aria-label="Navigation menu"
             onClick={!isOpen ? onClick : onClose}
             color="inherit"
           >
