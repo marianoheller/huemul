@@ -1,4 +1,3 @@
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { render } from 'react-dom';
