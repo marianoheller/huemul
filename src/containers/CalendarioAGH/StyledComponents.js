@@ -23,7 +23,7 @@ margin-left: 10vw;
 `;
 
 export const Title = styled.div`
-font-weight: 100;
+font-weight: 300;
 color: ${props => props.theme.palette.primary[300]};
 font-size: 3rem;
 margin-top: 2rem;

@@ -30,7 +30,7 @@ const ContentContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 100;
+  font-weight: 200;
   color: ${props => props.theme.palette.primary[300]};
   font-size: 3rem;
   margin-top: 2rem;

@@ -2,6 +2,7 @@
   "name": "huemul",
   "version": "0.1.0",
   "proxy": "http://localhost:3001",
+  "license": "MIT",
   "homepage": "https://marianoheller.github.io/huemul",
   "dependencies": {
     "@material-ui/core": "^1.0.0-rc.0",

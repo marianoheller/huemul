@@ -16,7 +16,7 @@ function capitalizeFirstLetter(string) {
 const ToolbarWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  font-weight: 100;
+  font-weight: 300;
   margin: 1rem 0;
 `;
 

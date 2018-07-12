@@ -11,8 +11,7 @@ export const StyledContainer = styled.div`
 export const Title = styled.div`
   margin-top: 4rem;
   font-size: 5rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
+  font-weight: 200;
   color: ${props => props.theme.palette.primary[300]};
   cursor: default;
 `;
@@ -20,8 +19,7 @@ export const Title = styled.div`
 export const Subtitle = styled.div`
   margin-top: 0rem;
   font-size: 1.6rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
+  font-weight: 200;
   color: ${props => props.theme.palette.primary[300]};
   cursor: default;
 `;
