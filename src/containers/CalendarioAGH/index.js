@@ -16,7 +16,7 @@ class CalendarioAGH extends React.Component {
 
   render() {
     const {
-      events, isFetching, error, filter,
+      events, isFetching, error, filter, setFilter,
     } = this.props;
     return (
       <SC.CSAContainer>
@@ -27,6 +27,7 @@ class CalendarioAGH extends React.Component {
           isFetching={isFetching}
           error={error}
           filter={filter}
+          setFilter={setFilter}
           hasFilter
         />
       </SC.CSAContainer>
@@ -52,6 +53,7 @@ CalendarioAGH.propTypes = {
   error: PropTypes.string,
   filter: PropTypes.string,
   getData: PropTypes.func,
+  setFilter: PropTypes.func,
 };
 
 CalendarioAGH.defaultProps = {
@@ -60,6 +62,7 @@ CalendarioAGH.defaultProps = {
   error: '',
   filter: '',
   getData: () => {},
+  setFilter: () => {},
 };
 
 
@@ -73,6 +76,7 @@ const mapStateToProps = ({ calendarioAGH }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getData: () => dispatch(actions.CSACalendar.request()),
+  setFilter: filter => dispatch(actions.CSASetFilter(filter)),
 });
 
 

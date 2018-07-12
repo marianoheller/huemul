@@ -1,4 +1,5 @@
 # TODO
 
-* Trabajos -> Sin OT
-* Mejorar calendar mock data
+* Bug de Calendar en el search bar
+* Algo con Steppers en vez de Planificador
+* Look for TODOs

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { navigate as NAVIGATE } from 'react-big-calendar/lib/utils/constants';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
 
-import LegFilter from '../../LegFilter';
+import CustomFilter from '../../CustomFilter';
 import { adjustHexOpacity } from '../../../utils';
 
 function capitalizeFirstLetter(string) {
@@ -84,6 +84,7 @@ export default class Toolbar extends React.Component {
 
     this.handleNavigation = this.handleNavigation.bind(this);
     this.handleChangeView = this.handleChangeView.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
   handleNavigation(action) {
@@ -101,20 +102,35 @@ export default class Toolbar extends React.Component {
     };
   }
 
+  handleFilterChange(input) {
+    if (!input || input.target) return;
+    const { setFilter } = this.props;
+    setFilter(input);
+  }
+
   isToday() {
     const { date } = this.props;
     return moment().month() === moment(date).month();
   }
 
   render() {
-    const { messages, hasFilter } = this.props;
+    const { messages, hasFilter, filter } = this.props;
     return (
       <ToolbarWrapper>
         <Label>{capitalizeFirstLetter(this.props.label)}</Label>
 
         { hasFilter &&
           <FilterWrapper>
-            <LegFilter />
+            <CustomFilter
+              /* TODO: fix autofocus not working */
+              autoFocus
+              onFilterChange={this.handleFilterChange}
+              filter={filter}
+              placeholder="Legajo"
+              isLoading={false}
+
+              handleCommit={this.handleFilterChange}
+            />
           </FilterWrapper>
         }
 
@@ -148,6 +164,8 @@ Toolbar.propTypes = {
   onViewChange: PropTypes.func,
   date: PropTypes.instanceOf(Date),
   hasFilter: PropTypes.bool,
+  setFilter: PropTypes.func,
+  filter: PropTypes.string,
 };
 
 Toolbar.defaultProps = {
@@ -156,7 +174,9 @@ Toolbar.defaultProps = {
   onNavigate: () => {},
   onViewChange: () => {},
   date: {},
+  filter: '',
   hasFilter: true,
+  setFilter: () => {},
 };
 
 

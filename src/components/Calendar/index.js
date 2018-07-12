@@ -15,7 +15,7 @@ BigCalendar.momentLocalizer(moment);
 
 export default function CalendarComponent(props) {
   const {
-    events, error, isFetching, filter, spinnerMessage, hasFilter,
+    events, error, isFetching, filter, setFilter, spinnerMessage, hasFilter,
   } = props;
 
   if (error) console.log('Error calendar', error);
@@ -41,7 +41,9 @@ export default function CalendarComponent(props) {
         views={['month']}
         defaultDate={targetDate}
         components={{
-          toolbar: iProps => <CC.Toolbar hasFilter={hasFilter} {...iProps} />,
+          toolbar: iProps => (
+            <CC.Toolbar hasFilter={hasFilter} setFilter={setFilter} filter={filter} {...iProps} />
+          ),
           month: { ...CC.month },
         }}
       />
@@ -68,6 +70,7 @@ CalendarComponent.propTypes = {
   error: PropTypes.string,
   filter: PropTypes.string,
   spinnerMessage: PropTypes.string,
+  setFilter: PropTypes.func,
 };
 
 CalendarComponent.defaultProps = {
@@ -77,5 +80,6 @@ CalendarComponent.defaultProps = {
   error: '',
   filter: '',
   spinnerMessage: '',
+  setFilter: () => {},
 };
 
