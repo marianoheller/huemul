@@ -18,9 +18,12 @@ export default class EventForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(name) {
+  handleChange(name, type) {
     return (e) => {
-      this.setState({ [name]: e.currentTarget.value });
+      if (type === 'date') this.setState({ [name]: e.toDate() });
+      else {
+        this.setState({ [name]: e.currentTarget.value });
+      }
     };
   }
 
@@ -72,23 +75,28 @@ export default class EventForm extends React.Component {
         value: type,
         onChange: this.handleChange('type'),
       },
+    ];
+
+    const dateFields = [
       {
         name: 'start',
         label: 'Comienza',
         value: start,
-        onChange: this.handleChange('start'),
+        onChange: this.handleChange('start', 'date'),
       },
       {
         name: 'end',
         label: 'Finaliza',
         value: end,
-        onChange: this.handleChange('end'),
+        onChange: this.handleChange('end', 'date'),
       },
     ];
+
     return (
       <EditForm
         updateStatus={updateStatus}
         textFields={textFields}
+        dateFields={dateFields}
         onSubmit={this.handleSubmit}
         onCancel={onCancel}
       />
@@ -110,19 +118,32 @@ EventForm.propTypes = {
     title: PropTypes.string,
     allDay: PropTypes.bool,
     resource: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       type: PropTypes.string,
       fixed: PropTypes.bool,
       lastEvent: PropTypes.bool,
       legajo: PropTypes.string,
     }),
-  }).isRequired,
+  }),
 };
 
 EventForm.defaultProps = {
   updateStatus: {
     error: '',
     isUpdating: false,
+  },
+  event: {
+    start: new Date(),
+    end: new Date(),
+    title: '',
+    allDay: false,
+    resource: {
+      id: 1,
+      type: '',
+      fixed: false,
+      lastEvent: false,
+      legajo: '',
+    },
   },
   onSubmitEdit: () => {},
   onCancel: () => {},

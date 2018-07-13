@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import moment from 'moment';
+import 'moment/locale/es';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import DateTimePicker from 'material-ui-pickers/DateTimePicker';
+import { ArrowBack, ArrowForward, Event } from '@material-ui/icons';
 
 import AssocEdiTable from '../AssocTable/AssocEdiTable';
 import * as Buttons from '../Buttons';
+
+moment.locale('es');
 
 const EditFormWrapper = styled.div`
   color: ${props => props.theme.palette.primary[300]};
@@ -59,19 +67,60 @@ const StyledTextField = styled(TextField)`
 `;
 
 
+const __CustomDatePicker = props => (
+  <MuiPickersUtilsProvider
+    utils={MomentUtils}
+    moment={moment}
+    locale="es"
+  >
+    <DateTimePicker
+      label="Fecha & Hora"
+      leftArrowIcon={<ArrowBack />}
+      rightArrowIcon={<ArrowForward />}
+      keyboardIcon={<Event />}
+      format="LLL"
+      {...props}
+    />
+  </MuiPickersUtilsProvider>
+);
+
+export const CustomDatePicker = styled(__CustomDatePicker)`
+  & input {
+    color: ${props => props.theme.palette.secondary[100]};
+    font-weight: 300;
+    cursor: pointer;
+  }
+  & label {
+    color: ${props => props.theme.palette.secondary[300]} !important;
+  }
+  & label + div::before {
+    border-color: ${props => props.theme.palette.secondary[300]} !important;
+    transition: border-bottom-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+  }
+  & label + div::after {
+    transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+  }
+`;
+
+
 export default function EditForm(props) {
   const {
-    table, textFields, onCancel, onSubmit, autocomplete, updateStatus,
+    table, textFields, dateFields, onCancel, onSubmit, autocomplete, updateStatus,
   } = props;
   return (
     <EditFormWrapper>
       {textFields.map(f => (
         <StyledTextField
           key={f.name}
-          name={f.name}
-          label={f.label}
-          value={f.value}
-          onChange={f.onChange}
+          {...f}
+          margin="normal"
+        />
+      ))}
+
+      {dateFields.map(f => (
+        <CustomDatePicker
+          key={f.name}
+          {...f}
           margin="normal"
         />
       ))}
@@ -123,6 +172,12 @@ EditForm.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
   })),
+  dateFields: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.instanceOf(Date),
+  })),
   autocomplete: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.string).isRequired,
     opts: PropTypes.shape({}),
@@ -143,6 +198,7 @@ EditForm.defaultProps = {
     data: [],
   },
   textFields: [],
+  dateFields: [],
   onCancel: () => {},
   onSubmit: () => {},
   autocomplete: null,

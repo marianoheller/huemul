@@ -18,6 +18,7 @@ export default function CalendarComponent(props) {
     events, error, isFetching, filter, setFilter, spinnerMessage, hasFilter, viewTrabajo,
   } = props;
 
+  // TODO: Improve error reporting
   if (error) console.log('Error calendar', error);
 
   if (isFetching) {
