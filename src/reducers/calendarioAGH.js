@@ -12,6 +12,7 @@ const parseEvents = data => data.map(ev => ({
     fixed: ev.planFijo,
     lastEvent: ev.esUltimoEventoDelTrabajo,
     legajo: ev.legajo,
+    id: ev.id,
   },
 }));
 

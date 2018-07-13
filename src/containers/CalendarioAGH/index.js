@@ -2,19 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import EventForm from '../../components/EditForms/EventForm';
 import Calendar from '../../components/Calendar';
 import * as actions from '../../actions/calendarioAGH';
 import * as SC from './StyledComponents';
 
 
 class CalendarioAGH extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      selectedEvent: null,
+    };
+    this.openTrabajoModal = this.openTrabajoModal.bind(this);
+    this.closeTrabajoModal = this.closeTrabajoModal.bind(this);
+  }
+
   componentDidMount() {
     const { getData } = this.props;
     getData();
   }
 
+  openTrabajoModal(trabajoId) {
+    const { events } = this.props;
+    const trabajo = events.find(e => e.resource.id === trabajoId);
+    this.setState({
+      selectedEvent: trabajo || null,
+    });
+  }
+
+  closeTrabajoModal() {
+    this.setState({
+      selectedEvent: null,
+    });
+  }
 
   render() {
+    const { selectedEvent } = this.state;
     const {
       events, isFetching, error, filter, setFilter,
     } = this.props;
@@ -27,9 +52,20 @@ class CalendarioAGH extends React.Component {
           isFetching={isFetching}
           error={error}
           filter={filter}
+          viewTrabajo={this.openTrabajoModal}
           setFilter={setFilter}
           hasFilter
         />
+
+        <SC.StyledModal
+          isOpen={!!selectedEvent}
+          onRequestClose={this.closeTrabajoModal}
+        >
+          <EventForm
+            {...selectedEvent}
+            onCancel={this.closeTrabajoModal}
+          />
+        </SC.StyledModal>
       </SC.CSAContainer>
     );
   }
@@ -43,6 +79,7 @@ CalendarioAGH.propTypes = {
     title: PropTypes.string,
     allDay: PropTypes.bool,
     resource: PropTypes.shape({
+      id: PropTypes.string,
       type: PropTypes.string,
       fixed: PropTypes.bool,
       lastEvent: PropTypes.bool,

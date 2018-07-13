@@ -103,7 +103,7 @@ export default class Toolbar extends React.Component {
   }
 
   handleFilterChange(input) {
-    if (!input || input.target) return;
+    if (input === undefined || input.target) return;
     const { setFilter } = this.props;
     setFilter(input);
   }
@@ -122,7 +122,6 @@ export default class Toolbar extends React.Component {
         { hasFilter &&
           <FilterWrapper>
             <CustomFilter
-              /* TODO: fix autofocus not working */
               autoFocus
               onFilterChange={this.handleFilterChange}
               filter={filter}
@@ -178,36 +177,3 @@ Toolbar.defaultProps = {
   hasFilter: true,
   setFilter: () => {},
 };
-
-
-/**
-{
-  "date": "2018-04-23T14:02:52.677Z",
-  "view": "month",
-  "views": [
-    "month",
-    "week",
-    "day",
-    "agenda"
-  ],
-  "label": "April 2018",
-  "messages": {
-    "date": "Date",
-    "time": "Time",
-    "event": "Event",
-    "allDay": "all day",
-    "week": "week",
-    "work_week": "work week",
-    "day": "day",
-    "month": "month",
-    "previous": "back",
-    "next": "next",
-    "yesterday": "yesterday",
-    "tomorrow": "tomorrow",
-    "today": "today",
-    "agenda": "agenda"
-  },
-  onNavigate: ƒ (action, newDate),
-  onViewChange:ƒ (view),
-}
- */
