@@ -93,7 +93,7 @@ export default class ButtonAppBar extends React.Component {
             <SC.LogoContainer to="/">
               <SC.Logo id="home-nav-link">
                   huemul
-                <SC.Version active={Boolean(buildVersion)}>v{buildVersion || '0.00'}</SC.Version>
+                <SC.Version id="buildVersion" active={Boolean(buildVersion)}>v{buildVersion || '0.00'}</SC.Version>
               </SC.Logo>
             </SC.LogoContainer>
             <SC.Spacer />

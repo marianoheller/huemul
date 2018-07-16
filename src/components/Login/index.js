@@ -126,7 +126,7 @@ export default class LoginComponent extends React.Component {
           }
 
           <SC.StyledFormControl>
-            <SC.StyledError>{errors.request}</SC.StyledError>
+            <SC.StyledError id="requestError">{errors.request}</SC.StyledError>
           </SC.StyledFormControl>
 
         </SC.StyledForm>

@@ -65,15 +65,42 @@ describe('Login', function() {
 
   context('Form is submitted', function () {
     const text = 'asdasd';
-    it('reports error if password input is empty', () => {
-      cy.server()
-      cy.route('/api/autenticacion', []).as('login')
+    it('reports error correctly', () => {
+      cy.server();
+      cy.route({
+        method: 'POST',
+        url: '/api/autenticacion',
+        status: 500,
+        response: { error: text },
+        delay: 100,
+      }).as('login')
       cy.get(`input[name="usuario"]`).type(text);
       cy.get(`input[name="clave"]`).type(text);
       cy.get("#ingresarButton").click();
-      cy.wait('@login').then( xhr => {
-        
-      })
+  
+      cy.wait('@login')
+      cy.get("#requestError").should('not.be.empty');
+    })
+
+    it('redirects on success', () => {
+      cy.server();
+      cy.route({
+        method: 'POST',
+        url: '/api/autenticacion',
+        status: 200,
+        response: {
+          userId: 1,
+          token: 'aaaaaaa',
+        },
+        delay: 100,
+      }).as('login')
+      cy.get(`input[name="usuario"]`).type(text);
+      cy.get(`input[name="clave"]`).type(text);
+      cy.get("#ingresarButton").click();
+  
+      cy.wait('@login');
+      cy.wait(100);
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`);
     })
   })
 })

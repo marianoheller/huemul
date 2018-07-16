@@ -5,10 +5,10 @@ describe('My First Test', function() {
 })
 
 describe('Homepage', function() {
-  const BASE_URL = '/'
+  const URL = '/'
 
   beforeEach(() => {
-    cy.visit(BASE_URL)
+    cy.visit(URL)
   })
 
 
@@ -17,18 +17,31 @@ describe('Homepage', function() {
       cy.get('#ingresar-nav-button')
         .should('have', 'tabindex', '0')
         .click();
-      cy.url().should('eq', `${BASE_URL}login`)
+      cy.url().should('eq',`${Cypress.config('baseUrl')}/login`)
     })
   
     it('provides the name of the app', () => {
       cy.get('#home-nav-link')
         .should('have', 'href', '/')
         .click();
-      cy.url().should('eq', BASE_URL)
+        cy.wait(50);
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
   
     it('provides the version of the app', () => {
-      
+      cy.server();
+      cy.route({
+        method: 'GET',
+        url: '/api/gitinfo',
+        status: 200,
+        response: {
+          buildVersion: '1.2.34',
+        },
+        delay: 100,
+      }).as('gitinfo');
+      cy.wait('@login');
+      cy.wait(50);
+      cy.get('#buildVersion').should('not.be.empty');
     })
   })
 })
