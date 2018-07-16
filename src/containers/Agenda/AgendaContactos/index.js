@@ -139,7 +139,7 @@ class AgendaContactos extends React.Component {
     if (!isActive) return null;
     return (
       <SC.AgendaContactosWrapper>
-        <SC.Title>Contactos</SC.Title>
+        <SC.Title data-type="title">Contactos</SC.Title>
 
         <SC.ListaContainer>
           <CustomFilter
