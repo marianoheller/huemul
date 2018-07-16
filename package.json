@@ -46,11 +46,11 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --silent",
     "eject": "react-scripts eject",
     "precommit": "npm run lint",
     "prepush": "npm run lint",
     "cypress:open": "cypress open",
+    "cypress:all": "cypress run",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },

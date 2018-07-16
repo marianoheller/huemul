@@ -80,7 +80,7 @@ export default class LoginComponent extends React.Component {
                 if (e.keyCode === 13) this.handleIngresarClick();
               }}
             />
-            <SC.StyledFormHelperText>{errors.usuario}</SC.StyledFormHelperText>
+            <SC.StyledFormHelperText id="usuarioError">{errors.usuario}</SC.StyledFormHelperText>
           </SC.StyledFormControl>
 
           <SC.StyledFormControl error={Boolean(errors.clave)}>
@@ -105,11 +105,12 @@ export default class LoginComponent extends React.Component {
                 </SC.StyledInputAdornment>
               }
             />
-            <SC.StyledFormHelperText>{errors.clave}</SC.StyledFormHelperText>
+            <SC.StyledFormHelperText id="claveError">{errors.clave}</SC.StyledFormHelperText>
           </SC.StyledFormControl>
 
           <SC.StyledButtonFormControl>
             <SC.StyledButton
+              id="ingresarButton"
               color="primary"
               onClick={this.handleIngresarClick}
               disabled={isFetching}

@@ -5,7 +5,7 @@ describe('My First Test', function() {
 })
 
 describe('Homepage', function() {
-  const BASE_URL = 'http://localhost:3000/'
+  const BASE_URL = '/'
 
   beforeEach(() => {
     cy.visit(BASE_URL)

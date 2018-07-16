@@ -66,7 +66,7 @@ class Drawer extends React.Component {
           onOpen={this.handleTooltipOpen}
           open={tooltipOpen}
           placement="bottom"
-          title="Click here to navigate"
+          title="Clickear acá para ver menú"
         >
           <IconButton
             aria-owns={isOpen ? `drawer-menu-${name}` : null}
