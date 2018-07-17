@@ -70,16 +70,15 @@ export const Buttonera = styled.div`
   }
 `;
 
-function __Button(props) {
+function __Button({ type, ...rest }) {
   const iconMap = {
     delete: <Delete color="secondary" />,
     edit: <Edit color="secondary" />,
     associate: <SupervisorAccount color="secondary" />,
   };
-
   return (
-    <div {...props} >
-      {iconMap[props.type]}
+    <div {...rest} >
+      {iconMap[type]}
     </div>
   );
 }

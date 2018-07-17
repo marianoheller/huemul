@@ -54,7 +54,7 @@ export default class ListaAgenda extends React.Component {
     const { offsetIndex, page } = this.state;
     return (
       <React.Fragment>
-        <SC.ListaContainer>
+        <SC.ListaContainer data-cy-type="agendaLista">
 
           {items.slice(offsetIndex, offsetIndex + itemsPerPage).map((item, i) => (
             <ListaItem
@@ -65,6 +65,7 @@ export default class ListaAgenda extends React.Component {
               onDeleteContacto={() => onDeleteContacto(item.id)}
               tableDataField={tableDataField}
               tableHeaders={tableHeaders}
+              data-cy-type="agendaListaItem"
             />
           ))}
 
@@ -83,23 +84,29 @@ export default class ListaAgenda extends React.Component {
 
 const ListaItem = function __ListaItem(props) {
   const {
-    fieldNameMap, onDeleteContacto, onEditContacto, item, tableDataField, tableHeaders,
+    fieldNameMap, onDeleteContacto, onEditContacto, item, tableDataField, tableHeaders, ...rest
   } = props;
   return (
-    <SC.ListaItemContainer>
+    <SC.ListaItemContainer {...rest}>
       <SC.Buttonera>
-        <SC.Button type="edit" title="Editar" onClick={() => onEditContacto(props.item)} />
+        <SC.Button
+          type="edit"
+          title="Editar"
+          onClick={() => onEditContacto(props.item)}
+          data-cy-type="editItemButton"
+        />
         <SC.ButtonDanger
           type="delete"
           title="Borrar"
           onClick={onDeleteContacto}
+          data-cy-type="deleteItemButton"
         />
       </SC.Buttonera>
 
       {Object.keys(item).filter(k => fieldNameMap[k] && item[k]).map((k, i) => (
-        <SC.Field key={`${k}field${i}`}>
-          <SC.FieldName>{`${fieldNameMap[k]}:`}</SC.FieldName>
-          <SC.FieldValue>{item[k]}</SC.FieldValue>
+        <SC.Field key={`${k}field${i}`} data-cy-type="fieldPropItem">
+          <SC.FieldName data-cy-type="fieldItemName">{`${fieldNameMap[k]}:`}</SC.FieldName>
+          <SC.FieldValue data-cy-type="fieldItemValue">{item[k]}</SC.FieldValue>
         </SC.Field>
       ))}
 

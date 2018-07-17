@@ -36,11 +36,11 @@ export default class Trabajos extends React.Component {
             textColor="primary"
             fullWidth
             centered
-            data-type="tabs"
-            data-index={tabIndex}
+            data-cy-type="tabs"
+            data-cy-index={tabIndex}
           >
-            <SC.StyledTab label="Contactos" data-type="tab" data-index={0} />
-            <SC.StyledTab label="Clientes" data-type="tab" data-index={1} />
+            <SC.StyledTab label="Contactos" data-cy-type="tab" data-cy-index={0} />
+            <SC.StyledTab label="Clientes" data-cy-type="tab" data-cy-index={1} />
           </SC.StyledTabs>
         </AppBar>
         <SC.StyledSwipeableViews

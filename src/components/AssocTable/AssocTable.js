@@ -22,10 +22,10 @@ function __AssocTable(props) {
   const data = uniq(props.data);
   return (
     <div className={props.className}>
-      <Table>
+      <Table data-cy-type="assocTable">
         <TableHead>
           <TableRow>
-            {props.headers.map(head => <TableCell key={head.prop}>{head.text}</TableCell>)}
+            {props.headers.map(head => <TableCell data-cy-type="assocTableHeader" key={head.prop}>{head.text}</TableCell>)}
             {props.buttons.map((button, i) => <TableCell key={`head${button.type}${i}`} />)}
           </TableRow>
         </TableHead>

@@ -100,7 +100,7 @@ export default class CustomFilter extends React.Component {
           <IconButton
             aria-label="Buscar"
             onClick={handleCommit}
-            data-type="filterButton"
+            data-cy-type="filterButton"
           >
             <StyledSearch />
           </IconButton>
@@ -119,7 +119,7 @@ export default class CustomFilter extends React.Component {
           hasSelect={hasSelect}
           value={filter}
           endAdornment={hasSelect ? undefined : iconAdornment}
-          data-type="filterInput"
+          data-cy-type="filterInput"
         />
         { hasSelect &&
         <React.Fragment>
