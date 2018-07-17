@@ -114,6 +114,7 @@ export default function EditForm(props) {
           key={f.name}
           {...f}
           margin="normal"
+          data-cy-type="editFormTextField"
         />
       ))}
 
@@ -141,12 +142,12 @@ export default function EditForm(props) {
           {updateStatus.isUpdating ?
             <CircularProgress color="primary" size={36} />
           :
-            updateStatus.error
+            <div data-cy-type="editFormErrorMessage">updateStatus.error</div>
           }
         </StatusContainer>
         <ButtoneraContainer>
-          <Buttons.SecondaryButton text="Cancelar" onClick={onCancel} disabled={updateStatus.isUpdating} />
-          <Buttons.PrimaryButton text="Modificar" onClick={onSubmit} disabled={updateStatus.isUpdating} />
+          <Buttons.SecondaryButton text="Cancelar" onClick={onCancel} disabled={updateStatus.isUpdating} data-cy-type="editFormCancelButton" />
+          <Buttons.PrimaryButton text="Modificar" onClick={onSubmit} disabled={updateStatus.isUpdating} data-cy-type="editFormSubmitButton" />
         </ButtoneraContainer>
       </BottomContainer>
     </EditFormWrapper>
