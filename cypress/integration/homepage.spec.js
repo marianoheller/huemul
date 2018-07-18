@@ -34,7 +34,8 @@ describe('Homepage', function() {
         },
         delay: 100,
       }).as('gitinfo');
-      cy.wait('@login');
+      cy.visit(URL);
+      cy.wait('@gitinfo');
       cy.wait(50);
       cy.get('#buildVersion').should('not.be.empty');
     })

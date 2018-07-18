@@ -160,9 +160,13 @@ describe('Agenda', function() {
       cy.visit(URL);
       cy.wait('@getContactos');
       cy.get('[data-cy-type=deleteItemButton]').first().click();
+      cy.get('[data-cy-type=modalConfirmMessage').should('exist').and('not.be.empty');
+      cy.get('[data-cy-type=modalConfirmNoButton').should('exist');
+      cy.get('[data-cy-type=modalConfirmYesButton').should('exist');
     })
   })
 
+  /** ***************************************************************************************************** */
   context('Clientes page', function () {
     beforeEach(() => {
       cy.get('[data-cy-type=tab][data-cy-index=1]').click();

@@ -23,13 +23,13 @@ export default function ModalConfirm(props) {
     >
       <SC.ContentWrapper>
         <SC.Title>{title}</SC.Title>
-        <SC.Message>{message}</SC.Message>
+        <SC.Message data-cy-type="modalConfirmMessage">{message}</SC.Message>
         <SC.BottomContainer>
           <SC.StatusContainer isUpdating={isLoading}>
             {isLoading ?
               <CircularProgress color="primary" size={36} />
             :
-              error
+              <div data-cy-type="modalConfirmError">{error}</div>
             }
           </SC.StatusContainer>
           <SC.Buttonera>
@@ -37,11 +37,13 @@ export default function ModalConfirm(props) {
               text="Si"
               onClick={onAccept}
               disabled={isLoading}
+              data-cy-type="modalConfirmYesButton"
             />
             <Buttons.SecondaryButton
               text="No"
               onClick={onClose}
               disabled={isLoading}
+              data-cy-type="modalConfirmNoButton"
             />
           </SC.Buttonera>
         </SC.BottomContainer>
