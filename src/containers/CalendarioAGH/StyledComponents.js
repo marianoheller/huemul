@@ -12,6 +12,7 @@ Modal.setAppElement('#root');
 export const CSAContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 
   align-items: center;
   justify-content: center;
@@ -19,7 +20,7 @@ export const CSAContainer = styled.div`
   width: 80vw;
   margin-left: 10vw;
 
-  @media only screen and (max-width: 14<00px) {
+  @media only screen and (max-width: 1400px) {
     width: 90vw;
     margin-left: 5vw;
   }
@@ -36,6 +37,14 @@ export const Title = styled.div`
   font-size: 3rem;
   margin-top: 2rem;
   cursor: default;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media only screen and (max-width: 400px) {
+    font-size: 2.25rem;
+  }
 `;
 
 

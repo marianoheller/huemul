@@ -16,8 +16,9 @@ const CustomFilterWrapper = styled.div`
 `;
 
 const StyledInput = styled(({ hasSelect, ...rest }) => <Input {...rest} />)`
-  flex: 1;
-  min-width: 33%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 0.5rem;
   caret-color: ${props => props.theme.palette.primary[300]};
   border-style: solid;

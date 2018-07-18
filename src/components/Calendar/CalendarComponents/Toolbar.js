@@ -21,61 +21,61 @@ const ToolbarWrapper = styled.div`
 `;
 
 const ButtonGrp = styled.div`
-    display: flex;
-    flex-direction: row;
-    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-    border-radius: 2px;
-    border-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.2)};
-    border-width: 1px;
-    border-style: solid;
-    border-right-width: 0px;
-    background-color: ${props => props.theme.background.secondary};
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+  border-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.2)};
+  border-width: 1px;
+  border-style: solid;
+  border-right-width: 0px;
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 const FilterWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-    border-radius: 2px;
-    border-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.2)};
-    border-width: 1px;
-    border-style: solid;
-    background-color: ${props => props.theme.background.secondary};
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+  border-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.2)};
+  border-width: 1px;
+  border-style: solid;
+  background-color: ${props => props.theme.background.secondary};
 
-    margin-right: 1rem;
+  margin-right: 1rem;
 `;
 
 const Label = styled.div`
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    padding: 0.25rem 0.5rem;
-    cursor: default;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-weight: 300;
+  padding: 0.25rem 0.5rem;
+  cursor: default;
 `;
 
 const Button = styled.div`
-    display: flex;
-    color:  ${props => (props.disabled ? 'grey' : 'white')};
-    cursor:  ${props => (props.disabled ? 'default' : 'pointer')};
-    user-select: none;
-    padding: 0.25rem 0.5rem;
-    justify-content: center;
-    text-align: center;
-    vertical-align: middle;
-    background: ${props => (props.disabled ? props.theme.background.primary : 'inherit')};
+  display: flex;
+  color:  ${props => (props.disabled ? 'grey' : 'white')};
+  cursor:  ${props => (props.disabled ? 'default' : 'pointer')};
+  user-select: none;
+  padding: 0.25rem 0.5rem;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  background: ${props => (props.disabled ? props.theme.background.primary : 'inherit')};
 
-    border-right-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.4)};
-    border-right-width: 1px;
-    border-right-style: solid;
+  border-right-color: ${props => adjustHexOpacity(props.theme.palette.primary[300], 0.4)};
+  border-right-width: 1px;
+  border-right-style: solid;
 
-    &:hover {
-        background-color: ${props =>
+  &:hover {
+    background-color: ${props =>
     (props.disabled ? props.theme.background.primary : props.theme.palette.primary[300])
 };
-    }
+  }
 `;
 
 export default class Toolbar extends React.Component {
