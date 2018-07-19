@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import TrabajoSeeker from '../../components/TrabajoSeeker';
-import Calendar from '../../components/Calendar';
+import PertChart from '../../components/PertChart';
 
 
 const PlanificadorContainer = styled.div`
@@ -37,16 +36,19 @@ const Title = styled.div`
   cursor: default;
 `;
 
+const PertContainer = styled.div`
+  width: 100%;
+  height: 300px;
+`;
+
 export default function CalendarioAGH() {
   return (
     <PlanificadorContainer>
       <Title>Planificador</Title>
       <ContentContainer>
-        <TrabajoSeeker />
-        <Calendar
-          spinnerMessage="Cargando planificador..."
-          hasFilter={false}
-        />
+        <PertContainer>
+          <PertChart />
+        </PertContainer>
       </ContentContainer>
     </PlanificadorContainer>
   );
