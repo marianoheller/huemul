@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 import React from 'react';
+import { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { ParentSize } from '@vx/responsive';
 import { Group } from '@vx/group';
@@ -8,6 +9,8 @@ import { Tree } from '@vx/hierarchy';
 import { LinearGradient } from '@vx/gradient';
 import { hierarchy } from 'd3-hierarchy';
 import { LinkHorizontal } from '@vx/shape';
+
+import { adjustHexOpacity } from '../../utils';
 
 const data = {
   name: 'T',
@@ -50,10 +53,11 @@ const data = {
   ],
 };
 
-export default class PertChart extends React.Component {
+class PertChart extends React.Component {
   render() {
     const {
-      // data,
+      // data
+      theme,
       margin,
     } = this.props;
     const stepPercent = 0.5;
@@ -84,7 +88,7 @@ export default class PertChart extends React.Component {
                     <LinkHorizontal
                       data={link}
                       percent={stepPercent}
-                      stroke="#374469"
+                      stroke={theme.palette.primary[300]}
                       strokeWidth="1"
                       fill="none"
                       key={i}
@@ -92,7 +96,8 @@ export default class PertChart extends React.Component {
                   ))}
 
                   {data.descendants().map((node, key) => {
-                    const nodeRadius = 30;
+                    const height = 30;
+                    const width = 30;
                     const top = node.x;
                     const left = node.y;
 
@@ -111,11 +116,12 @@ export default class PertChart extends React.Component {
                         )}
                         {node.depth !== 0 && (
                           <rect
-                            r={nodeRadius}
                             y={-height / 2}
                             x={-width / 2}
-                            fill="#272b4d"
-                            stroke={node.data.children ? '#03c0dc' : '#26deb0'}
+                            height={height}
+                            width={width}
+                            fill={adjustHexOpacity(theme.palette.primary[300], 0.5)}
+                            stroke={theme.palette.primary[300]}
                             strokeWidth={1}
                             strokeDasharray={!node.data.children ? '2,2' : '0'}
                             strokeOpacity={!node.data.children ? 0.6 : 1}
@@ -133,7 +139,7 @@ export default class PertChart extends React.Component {
                           fontFamily="Arial"
                           textAnchor="middle"
                           style={{ pointerEvents: 'none' }}
-                          fill={node.depth === 0 ? '#71248e' : node.children ? 'white' : '#26deb0'}
+                          fill={node.depth === 0 ? 'white' : node.children ? 'white' : 'white'}
                         >
                           {node.data.name}
                         </text>
@@ -157,6 +163,7 @@ PertChart.propTypes = {
     bottom: PropTypes.number,
     left: PropTypes.number,
   }),
+  theme: PropTypes.shape({}).isRequired,
 };
 
 PertChart.defaultProps = {
@@ -167,3 +174,5 @@ PertChart.defaultProps = {
     bottom: 30,
   },
 };
+
+export default withTheme(PertChart);

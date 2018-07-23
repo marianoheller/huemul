@@ -54,7 +54,7 @@ class AgendaClientes extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { updateStatus } = nextProps;
     if (!updateStatus.isUpdating &&
-      !updateStatus.error.length &&
+      !updateStatus.error &&
       this.props.updateStatus.isUpdating
     ) {
       this.closeEditModal();
@@ -67,16 +67,16 @@ class AgendaClientes extends React.Component {
     });
   }
 
-  openEditModal(contacto) {
+  openEditModal(cliente) {
     this.setState({
       editModalIsOpen: true,
-      currentEditCliente: contacto,
+      currentEditCliente: cliente,
     });
   }
 
   closeEditModal() {
-    const { updateStatus, clearUpdateErrors } = this.props;
-    if (updateStatus.isUpdating) return;
+    const { clearUpdateErrors } = this.props;
+    // if (updateStatus.isUpdating) return;
     this.setState({
       editModalIsOpen: false,
       currentEditCliente: null,
@@ -101,12 +101,16 @@ class AgendaClientes extends React.Component {
     clearDeleteErrors();
   }
 
-  handleSubmitEdit(originalContacto) {
-    return (newContacto) => {
+  handleSubmitEdit(originalCliente) {
+    return (newCliente) => {
       const { updateCliente } = this.props;
+      Object.keys(newCliente).forEach((k) => {
+        // eslint-disable-next-line no-param-reassign
+        if (!newCliente[k]) delete newCliente[k];
+      });
       updateCliente({
-        ...originalContacto,
-        ...newContacto,
+        ...originalCliente,
+        ...newCliente,
       });
     };
   }

@@ -38,11 +38,13 @@ class AgendaContactos extends React.Component {
     this.openDeleteModal = this.openDeleteModal.bind(this);
     this.closeDeleteModal = this.closeDeleteModal.bind(this);
 
-    // Filtering
+    // Editing
     this.openEditModal = this.openEditModal.bind(this);
     this.closeEditModal = this.closeEditModal.bind(this);
     this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+
+    // Filtering
     this.setActiveFilter = this.setActiveFilter.bind(this);
     this.setActiveFilter = debounce(this.setActiveFilter, 500);
   }
@@ -55,7 +57,7 @@ class AgendaContactos extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { updateStatus } = nextProps;
     if (!updateStatus.isUpdating &&
-      !updateStatus.error.length &&
+      !updateStatus.error &&
       this.props.updateStatus.isUpdating
     ) {
       this.closeEditModal();
@@ -76,13 +78,13 @@ class AgendaContactos extends React.Component {
   }
 
   closeEditModal() {
-    const { updateStatus, clearUpdateErrors } = this.props;
-    if (updateStatus.isUpdating) return;
+    const { clearUpdateErrors } = this.props;
+    // Commented out next line to fix modal not closing after edit success
+    // if (updateStatus.isUpdating) return;
     this.setState({
       editModalIsOpen: false,
       currentEditContacto: null,
-    });
-    clearUpdateErrors();
+    }, clearUpdateErrors);
   }
 
   openDeleteModal(id) {

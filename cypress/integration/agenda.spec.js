@@ -20,6 +20,9 @@ describe('Agenda', function() {
     })
   })
 
+  /** *****************************************************************************************************
+   * Contactos
+  */
   context('Contactos page', function () {
     beforeEach(() => {
       cy.get('[data-cy-type=tab][data-cy-index=0]').click();
@@ -166,7 +169,9 @@ describe('Agenda', function() {
     })
   })
 
-  /** ***************************************************************************************************** */
+  /** *****************************************************************************************************
+   * Clientes
+  */
   context('Clientes page', function () {
     beforeEach(() => {
       cy.get('[data-cy-type=tab][data-cy-index=1]').click();
@@ -176,6 +181,142 @@ describe('Agenda', function() {
       cy.get('[data-cy-type=title]').should('not.be.empty');
       cy.get('[data-cy-type=filterInput] > input').should('have.attr', 'type', 'text');
       cy.get('[data-cy-type=filterButton]').should('not.be.empty');
+    })
+
+    it('should load clients correctly', () => {
+      cy.server();
+      cy.fixture('clientes').as('clientes');
+      cy.route({
+        method: 'GET',
+        url: '/api/clientes',
+        status: 200,
+        response: '@clientes',
+        delay: 100,
+      }).as('getClientes');
+      cy.visit(URL);
+      cy.wait('@getClientes');
+      cy.get('[data-cy-type=tab][data-cy-index=1]').click();
+      cy.get('[data-cy-type=agendaLista]').should('exist');
+      cy.get('[data-cy-type=agendaListaItem]').should('have.length.greaterThan', 0);
+      cy.get('[data-cy-type=agendaListaItem]').each( $el => {
+        cy.wrap($el).within( $item => {
+          cy.get('[data-cy-type=deleteItemButton]').should('exist').and('have.length', 1);
+          cy.get('[data-cy-type=editItemButton]').should('exist').and('have.length', 1);
+          cy.get('[data-cy-type=fieldPropItem]').each( $field => {
+            cy.wrap($field).within( $field => {
+              cy.get('[data-cy-type=fieldItemName]').should('have.length', 1);
+              cy.get('[data-cy-type=fieldItemValue]').should('have.length', 1);
+            });
+          });
+        });
+      });
+    })
+
+    it('should show edit client modal correctly', () => {
+      const text = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+      cy.server();
+      cy.fixture('clientes').as('clientes');
+      cy.route({
+        method: 'GET',
+        url: '/api/clientes',
+        status: 200,
+        response: '@clientes',
+        delay: 100,
+      }).as('getClientes');
+      cy.visit(URL);
+      cy.wait('@getClientes');
+      cy.get('[data-cy-type=tab][data-cy-index=1]').click();
+      cy.get('[data-cy-type=editItemButton]').first().click();
+      cy.get('[data-cy-type=editFormTextField]').should('have.length', 6).each( $field => {
+        cy.wrap($field).within( () => {
+          cy.get('input').clear().should('have.value', '');
+          cy.get('input').type(text).should('have.value', text);
+        })
+      });
+      cy.get('[data-cy-type=editFormCancelButton]').should('exist');
+      cy.get('[data-cy-type=editFormSubmitButton]').should('exist');
+    })
+
+    it('should report error show when edit request fails', () => {
+      const text = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+      cy.server();
+      cy.fixture('clientes').as('clientes');
+      cy.route({
+        method: 'GET',
+        url: '/api/clientes',
+        status: 200,
+        response: '@clientes',
+        delay: 100,
+      }).as('getClientes');
+      cy.visit(URL);
+      cy.wait('@getClientes');
+      cy.get('[data-cy-type=tab][data-cy-index=1]').click();
+      cy.get('[data-cy-type=editItemButton]').first().click();
+      cy.get('[data-cy-type=editFormTextField]').first().within( () => {
+        cy.get('input').clear().type(text);
+      });
+      cy.route({
+        method: 'PUT',
+        url: '/api/clientes',
+        status: 500,
+        response: '@clientes',
+        delay: 100,
+      }).as('putClientesFail');
+      cy.get('[data-cy-type=editFormSubmitButton]').click();
+      cy.wait('@putClientesFail');
+      cy.get('[data-cy-type=editFormErrorMessage]').should('exist');
+    })
+
+    it('should close modal and change element when edit request succeds', () => {
+      const text = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+      cy.server();
+      cy.fixture('clientes').as('clientes');
+      cy.fixture('singleCliente').as('singleCliente');
+      cy.route({
+        method: 'GET',
+        url: '/api/clientes',
+        status: 200,
+        response: '@clientes',
+        delay: 100,
+      }).as('getClientes');
+      cy.visit(URL);
+      cy.wait('@getClientes');
+      cy.get('[data-cy-type=tab][data-cy-index=1]').click();
+      cy.get('[data-cy-type=editItemButton]').first().click();
+      cy.get('[data-cy-type=editFormTextField]').first().within( () => {
+        cy.get('input').clear().type(text);
+      });
+      cy.route({
+        method: 'PUT',
+        url: '/api/clientes',
+        status: 200,
+        response: '@singleCliente',
+        delay: 100,
+      }).as('putClientesSuccess');
+      cy.get('[data-cy-type=editFormSubmitButton]').click();
+      cy.wait('@putClientesSuccess');
+      cy.get('[data-cy-type=editFormCancelButton]').should('not.exist');
+      cy.get('[data-cy-type=editFormSubmitButton]').should('not.exist');
+      cy.get('[data-cy-type=editFormErrorMessage]').should('not.exist');
+    })
+
+    it('should show delete modal correctly', () => {
+      cy.server();
+      cy.fixture('clientes').as('clientes');
+      cy.route({
+        method: 'GET',
+        url: '/api/clientes',
+        status: 200,
+        response: '@clientes',
+        delay: 100,
+      }).as('getClientes');
+      cy.visit(URL);
+      cy.wait('@getClientes');
+      cy.get('[data-cy-type=tab][data-cy-index=1]').click();
+      cy.get('[data-cy-type=deleteItemButton]').first().click();
+      cy.get('[data-cy-type=modalConfirmMessage').should('exist').and('not.be.empty');
+      cy.get('[data-cy-type=modalConfirmNoButton').should('exist');
+      cy.get('[data-cy-type=modalConfirmYesButton').should('exist');
     })
   })
 })

@@ -110,7 +110,7 @@ export default (state = initialState, action = {}) => {
           isUpdating: false,
           error: null,
         },
-        data: state.data.map((cliente) => {
+        data: state.todos.data.map((cliente) => {
           if (action.data.id !== cliente.id) return cliente;
           return action.data;
         }),

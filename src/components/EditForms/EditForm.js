@@ -142,7 +142,7 @@ export default function EditForm(props) {
           {updateStatus.isUpdating ?
             <CircularProgress color="primary" size={36} />
           :
-            <div data-cy-type="editFormErrorMessage">updateStatus.error</div>
+            <div data-cy-type="editFormErrorMessage">{updateStatus.error}</div>
           }
         </StatusContainer>
         <ButtoneraContainer>
