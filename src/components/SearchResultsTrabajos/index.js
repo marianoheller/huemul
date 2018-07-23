@@ -67,13 +67,14 @@ export default class SearchResultsTrabajos extends React.Component {
     const { results } = this.props;
     const { activeIndex, offsetIndex, page } = this.state;
     return (
-      <ResultsContainer>
+      <ResultsContainer data-cy-type="trabajoSearchResults">
         {results.slice(offsetIndex, offsetIndex + RESULTS_PER_PAGE).map((r, i) => (
           <SingleResult
             key={r.id}
             isActive={i === activeIndex}
             onClick={this.setActive(i)}
             {...r}
+            data-cy-type="trabajoItem"
           />
         ))}
         { results.length ?

@@ -107,11 +107,11 @@ export default class SingleResult extends React.Component {
           {isActive ? (style) => {
             return (
               <ContentWrapper style={style}>
-                <div>Legajo: {legajo}</div>
-                <div>Nombre: {nombre}</div>
-                <div>Fecha pedido: {fechaPedido}</div>
-                <div>Clientes: {clientes.length}</div>
-                <div>Contactos: {contactos.length}</div>
+                <div data-cy-type="trabajoItemField">Legajo: {legajo}</div>
+                <div data-cy-type="trabajoItemField">Nombre: {nombre}</div>
+                <div data-cy-type="trabajoItemField">Fecha pedido: {fechaPedido}</div>
+                <div data-cy-type="trabajoItemField">Clientes: {clientes.length}</div>
+                <div data-cy-type="trabajoItemField">Contactos: {contactos.length}</div>
               </ContentWrapper>
             );
           }
@@ -120,8 +120,8 @@ export default class SingleResult extends React.Component {
           (style) => {
             return (
               <ContentWrapper style={style}>
-                <div>Legajo: {legajo}</div>
-                <div>Nombre: {nombre}</div>
+                <div data-cy-type="trabajoItemField">Legajo: {legajo}</div>
+                <div data-cy-type="trabajoItemField">Nombre: {nombre}</div>
               </ContentWrapper>
             );
           }}

@@ -20,25 +20,28 @@ export default class Trabajos extends React.Component {
   }
 
   render() {
+    const { tabIndex } = this.state;
     return (
       <SC.MainContainer>
         <AppBar position="static" color="default">
           <SC.StyledTabs
-            value={this.state.tabIndex}
+            value={tabIndex}
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
             fullWidth
             centered
+            data-cy-type="tabs"
+            data-cy-index={tabIndex}
           >
-            <SC.StyledTab label="Crear nuevo" />
-            <SC.StyledTab label="Trabajos" />
-            <SC.StyledTab label="Sin OT/SOT/RUT" />
+            <SC.StyledTab data-cy-type="tab" label="Crear nuevo" />
+            <SC.StyledTab data-cy-type="tab" label="Trabajos" />
+            <SC.StyledTab data-cy-type="tab" label="Sin OT/SOT/RUT" />
           </SC.StyledTabs>
         </AppBar>
         <SC.StyledSwipeableViews
           animateHeight
-          index={this.state.tabIndex}
+          index={tabIndex}
           /* Commenting next line disables changing tabs by slinding on mobile */
           /* But solves a problem with initial index */
           /* onChangeIndex={this.handleChangeIndex} */

@@ -13,10 +13,12 @@ import { adjustHexOpacity } from '../../utils';
 const CustomFilterWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 const StyledInput = styled(({ hasSelect, ...rest }) => <Input {...rest} />)`
   display:flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.5rem;

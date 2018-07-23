@@ -56,7 +56,7 @@ class Trabajos extends React.Component {
 
     return (
       <SC.TrabajosContainer>
-        <SC.Title>Buscar</SC.Title>
+        <SC.Title data-cy-type="title">Buscar</SC.Title>
         <CustomFilter
           /* TODO: fix autofocus not working */
           autoFocus
