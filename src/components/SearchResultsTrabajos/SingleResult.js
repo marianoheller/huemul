@@ -85,9 +85,10 @@ export default class SingleResult extends React.Component {
       fechaPedido,
       clientes,
       contactos,
+      ...rest
     } = this.props;
     return (
-      <ResultMainContainer onClick={onClick}>
+      <ResultMainContainer onClick={onClick} {...rest}>
         <IconContainer>
           <Spring
             to={{

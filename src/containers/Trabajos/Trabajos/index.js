@@ -55,7 +55,7 @@ class Trabajos extends React.Component {
     const selectOptions = SEARCH_FIELDS;
 
     return (
-      <SC.TrabajosContainer>
+      <SC.TrabajosContainer data-cy-type="trabajosContainer">
         <SC.Title data-cy-type="title">Buscar</SC.Title>
         <CustomFilter
           /* TODO: fix autofocus not working */

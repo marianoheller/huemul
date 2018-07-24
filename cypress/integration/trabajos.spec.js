@@ -31,19 +31,20 @@ describe('Trabajos', function() {
     })
 
     it('should load trabajos correctly', () => {
+      const text = 'RANDOMSEARCHINPUT';
       cy.server();
       cy.fixture('trabajos').as('trabajos');
       cy.route({
         method: 'GET',
-        url: '/api/trabajos',
+        url: `/api/trabajos?_query=numero.numero==${text}`,
         status: 200,
         response: '@trabajos',
         delay: 100,
       }).as('getTrabajos');
       cy.visit(URL);
       cy.get('[data-cy-type=tab][data-cy-index=1]').click();
-      cy.get('[data-cy-type=filterInput] > input').type('RANDOM SEARCH INPUT');
-      cy.get('[data-cy-type=filterButton]').click();
+      cy.get('[data-cy-type=trabajosContainer] [data-cy-type=filterInput] > input').type(text);
+      cy.get('[data-cy-type=trabajosContainer] [data-cy-type=filterButton]').click();
       cy.wait('@getTrabajos');
       cy.get('[data-cy-type=trabajoSearchResults]').should('exist');
       cy.get('[data-cy-type=trabajoItem]').should('have.length.greaterThan', 0);
@@ -77,9 +78,9 @@ describe('Trabajos', function() {
 
     it('all inputs should work', () => {
       const text = "lalalaa";
-      cy.get(`input[name="nombre"]`).type(text).should('have.value', text);
-      cy.get(`input[name="tipoTrabajo"]`).type(text).should('have.value', text);
-      cy.get(`input[name="fechaPedido"]`).type(text).should('have.value', text);
+      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="nombre"]`).first().type(text).should('have.value', text);
+      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="tipoTrabajo"]`).type(text).should('have.value', text);
+      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="fechaPedido"]`).type(text).should('have.value', text);
     })
 
     it('should report error on empty fields', () => {

@@ -32,11 +32,10 @@ export default class Trabajos extends React.Component {
             fullWidth
             centered
             data-cy-type="tabs"
-            data-cy-index={tabIndex}
           >
-            <SC.StyledTab data-cy-type="tab" label="Crear nuevo" />
-            <SC.StyledTab data-cy-type="tab" label="Trabajos" />
-            <SC.StyledTab data-cy-type="tab" label="Sin OT/SOT/RUT" />
+            <SC.StyledTab data-cy-type="tab" data-cy-index="0" label="Crear nuevo" />
+            <SC.StyledTab data-cy-type="tab" data-cy-index="1" label="Trabajos" />
+            <SC.StyledTab data-cy-type="tab" data-cy-index="2" label="Sin OT/SOT/RUT" />
           </SC.StyledTabs>
         </AppBar>
         <SC.StyledSwipeableViews

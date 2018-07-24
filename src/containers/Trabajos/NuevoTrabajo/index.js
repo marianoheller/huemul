@@ -18,7 +18,7 @@ function NuevoTrabajoContainer(props) {
     isFetching,
   } = props;
   return (
-    <SC.NuevoTrabajoContainer>
+    <SC.NuevoTrabajoContainer data-cy-type="nuevoTrabajoContainer">
       <SC.Title>Generar trabajo</SC.Title>
       <NuevoTrabajo
         crearTrabajo={crearTrabajo}
