@@ -79,8 +79,10 @@ describe('Trabajos', function() {
     it('all inputs should work', () => {
       const text = "lalalaa";
       cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="nombre"]`).first().type(text).should('have.value', text);
-      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="tipoTrabajo"]`).type(text).should('have.value', text);
-      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="fechaPedido"]`).type(text).should('have.value', text);
+      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="tipoTrabajo"]`).click();
+      cy.get('#menu-tipoTrabajo ul > li').should('have.length.greaterThan', 0);
+      cy.get('#menu-tipoTrabajo ul > li').first().should('have.attr', 'data-value', '');
+      cy.get(`[data-cy-type=nuevoTrabajoContainer] input[name="fechaPedido"]`).click();
     })
 
     it('should report error on empty fields', () => {

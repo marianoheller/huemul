@@ -74,6 +74,7 @@ const InnerForm = ({
             value: d.toDate(),
             type: 'date',
           }))}
+          data-cy-type="datePickerInput"
         />
         <SC.TextField
           name="nombre"
