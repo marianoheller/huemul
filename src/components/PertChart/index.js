@@ -22,6 +22,8 @@ const StyledNode = styled(Group)`
 
 const StyledTooltipWithBounds = styled(TooltipWithBounds)`
   max-width: 5rem;
+  max-height: 8rem;
+  overflow: hidden;
 `;
 
 
