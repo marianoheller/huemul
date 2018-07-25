@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 import React from 'react';
-import { withTheme } from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { ParentSize } from '@vx/responsive';
 import { Group } from '@vx/group';
@@ -9,56 +10,41 @@ import { Tree } from '@vx/hierarchy';
 import { LinearGradient } from '@vx/gradient';
 import { hierarchy } from 'd3-hierarchy';
 import { LinkHorizontal } from '@vx/shape';
+import { withTooltip, TooltipWithBounds } from '@vx/tooltip';
+import { localPoint } from '@vx/event';
 
 import { adjustHexOpacity } from '../../utils';
+import data from './data';
 
-const data = {
-  name: 'T',
-  children: [
-    {
-      name: 'A',
-      children: [
-        { name: 'A1' },
-        { name: 'A2' },
-        { name: 'A3' },
-        {
-          name: 'C',
-          children: [
-            {
-              name: 'C1',
-            },
-            {
-              name: 'D',
-              children: [
-                {
-                  name: 'D1',
-                },
-                {
-                  name: 'D2',
-                },
-                {
-                  name: 'D3',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    { name: 'Z' },
-    {
-      name: 'B',
-      children: [{ name: 'B1' }, { name: 'B2' }, { name: 'B3' }],
-    },
-  ],
-};
+const StyledNode = styled(Group)`
+  cursor: pointer;
+`;
+
+const StyledTooltipWithBounds = styled(TooltipWithBounds)`
+  max-width: 5rem;
+`;
+
 
 class PertChart extends React.Component {
+  handleMouseOver = (event, datum) => {
+    const coords = localPoint(event.target.ownerSVGElement, event);
+    this.props.showTooltip({
+      tooltipLeft: coords.x,
+      tooltipTop: coords.y,
+      tooltipData: datum,
+    });
+  };
+
   render() {
     const {
       // data
       theme,
       margin,
+      tooltipData,
+      tooltipLeft,
+      tooltipTop,
+      tooltipOpen,
+      hideTooltip,
     } = this.props;
     const stepPercent = 0.5;
     const origin = { x: 0, y: 0 };
@@ -66,90 +52,110 @@ class PertChart extends React.Component {
     return (
       <ParentSize>
         {({ width, height }) => (
-          <svg width={width} height={height}>
-            <LinearGradient id="lg" from="#fd9b93" to="#fe6e9e" />
-            <Tree
-              top={margin.top}
-              left={margin.left}
-              /* root={hierarchy(data, d => (d.isExpanded ? d.children : null))} */
-              root={hierarchy(data, d => d.children)}
-              size={[
-                height - margin.top - margin.bottom,
-                width - margin.left - margin.right,
-              ]}
-              separation={(a, b) => (a.parent === b.parent ? 1 : 0.5) / a.depth}
-            >
-              {({ data }) => (
-                <Group
-                  top={origin.y}
-                  left={origin.x}
-                >
-                  {data.links().map((link, i) => (
-                    <LinkHorizontal
-                      data={link}
-                      percent={stepPercent}
-                      stroke={theme.palette.primary[300]}
-                      strokeWidth="1"
-                      fill="none"
-                      key={i}
-                    />
-                  ))}
+          <React.Fragment>
+            <svg width={width} height={height}>
+              <LinearGradient id="lg" from="#fd9b93" to="#fe6e9e" />
+              <Tree
+                top={margin.top}
+                left={margin.left}
+                /* root={hierarchy(data, d => (d.isExpanded ? d.children : null))} */
+                root={hierarchy(data, d => d.children)}
+                size={[
+                  height - margin.top - margin.bottom,
+                  width - margin.left - margin.right,
+                ]}
+                separation={(a, b) => (a.parent === b.parent ? 0.95 : 1)}
+              >
+                {({ data }) => (
+                  <Group
+                    top={origin.y}
+                    left={origin.x}
+                  >
+                    {data.links().map((link, i) => (
+                      <LinkHorizontal
+                        data={link}
+                        percent={stepPercent}
+                        stroke={theme.palette.primary[300]}
+                        strokeWidth="1"
+                        fill="none"
+                        key={i}
+                      />
+                    ))}
 
-                  {data.descendants().map((node, key) => {
-                    const height = 30;
-                    const width = 30;
-                    const top = node.x;
-                    const left = node.y;
+                    {data.descendants().map((node, key) => {
+                      const height = 30;
+                      const width = 30;
+                      const top = node.x;
+                      const left = node.y;
 
-                    return (
-                      <Group top={top} left={left} key={key}>
-                        {node.depth === 0 && (
-                          <circle
-                            r={12}
-                            fill="url('#lg')"
-                            onClick={() => {
-                              // eslint-disable-next-line no-param-reassign
-                              node.data.isExpanded = !node.data.isExpanded;
-                              this.forceUpdate();
-                            }}
-                          />
-                        )}
-                        {node.depth !== 0 && (
-                          <rect
-                            y={-height / 2}
-                            x={-width / 2}
-                            height={height}
-                            width={width}
-                            fill={adjustHexOpacity(theme.palette.primary[300], 0.5)}
-                            stroke={theme.palette.primary[300]}
-                            strokeWidth={1}
-                            strokeDasharray={!node.data.children ? '2,2' : '0'}
-                            strokeOpacity={!node.data.children ? 0.6 : 1}
-                            rx={!node.data.children ? 10 : 0}
-                            onClick={() => {
-                              // eslint-disable-next-line no-param-reassign
-                              node.data.isExpanded = !node.data.isExpanded;
-                              this.forceUpdate();
-                            }}
-                          />
-                        )}
-                        <text
-                          dy=".33em"
-                          fontSize={9}
-                          fontFamily="Arial"
-                          textAnchor="middle"
-                          style={{ pointerEvents: 'none' }}
-                          fill={node.depth === 0 ? 'white' : node.children ? 'white' : 'white'}
+                      return (
+                        <StyledNode
+                          top={top}
+                          left={left}
+                          key={key}
+                          onMouseOver={e => this.handleMouseOver(e, node.data.description)}
+                          onFocus={e => this.handleMouseOver(e, node.data.description)}
+                          onMouseOut={hideTooltip}
+                          onBlur={hideTooltip}
                         >
-                          {node.data.name}
-                        </text>
-                      </Group>
-                    );
-                  })}
-                </Group>
-              )}
-            </Tree>
-          </svg>
+                          {node.depth === 0 && (
+                            <circle
+                              r={12}
+                              fill="url('#lg')"
+                              onClick={() => {
+                                // eslint-disable-next-line no-param-reassign
+                                node.data.isExpanded = !node.data.isExpanded;
+                                this.forceUpdate();
+                              }}
+                            />
+                          )}
+                          {node.depth !== 0 && (
+                            <rect
+                              y={-height / 2}
+                              x={-width / 2}
+                              height={height}
+                              width={width}
+                              fill={adjustHexOpacity(theme.palette.primary[300], 0.5)}
+                              stroke={theme.palette.primary[300]}
+                              strokeWidth={1}
+                              strokeDasharray={!node.data.children ? '2,2' : '0'}
+                              strokeOpacity={!node.data.children ? 0.6 : 1}
+                              rx={!node.data.children ? 10 : 0}
+                              onClick={() => {
+                                // eslint-disable-next-line no-param-reassign
+                                node.data.isExpanded = !node.data.isExpanded;
+                                this.forceUpdate();
+                              }}
+                            />
+                          )}
+                          <text
+                            dy=".33em"
+                            fontSize={9}
+                            fontFamily="Arial"
+                            textAnchor="middle"
+                            style={{ pointerEvents: 'none' }}
+                            fill={node.depth === 0 ? 'white' : node.children ? 'white' : 'white'}
+                          >
+                            {node.data.name}
+                          </text>
+                        </StyledNode>
+                      );
+                    })}
+                  </Group>
+                )}
+              </Tree>
+            </svg>
+            {tooltipOpen && (
+              <StyledTooltipWithBounds
+                // set this to random so it correctly updates with parent bounds
+                key={Math.random()}
+                top={tooltipTop}
+                left={tooltipLeft}
+              >
+                <div>{tooltipData}</div>
+              </StyledTooltipWithBounds>
+            )}
+          </React.Fragment>
         )}
       </ParentSize>
     );
@@ -175,4 +181,4 @@ PertChart.defaultProps = {
   },
 };
 
-export default withTheme(PertChart);
+export default withTooltip(withTheme(PertChart));

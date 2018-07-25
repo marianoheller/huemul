@@ -38,7 +38,7 @@ const Title = styled.div`
 
 const PertContainer = styled.div`
   width: 100%;
-  height: 300px;
+  height: 800px;
 `;
 
 export default function CalendarioAGH() {
