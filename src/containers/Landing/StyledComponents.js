@@ -23,3 +23,12 @@ export const Subtitle = styled.div`
   color: ${props => props.theme.palette.primary[300]};
   cursor: default;
 `;
+
+export const Description = styled.div`
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  color: ${props => props.theme.palette.secondary[300]};
+  cursor: default;
+`;
