@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
+/* eslint-disable no-plusplus */
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -27,7 +28,36 @@ const StyledTooltipWithBounds = styled(TooltipWithBounds)`
 `;
 
 
+const nodeCount = [];
+/**
+ * Recursive tree's node counter
+ * @param {*} node Node
+ * @param {*} d Depth
+ */
+function countLeaves(node, d = 0) {
+  if (node.children) {
+    for (let i = 0; i < node.children.length; i++) {
+      if (node.children[i].children) {
+        if (!nodeCount[d]) nodeCount[d] = 1;
+        else nodeCount[d]++;
+        countLeaves(node.children[i], d + 1);
+      } else if (!nodeCount[d]) nodeCount[d] = 1;
+      else nodeCount[d]++;
+    }
+  }
+}
+
 class PertChart extends React.Component {
+  componentWillMount() {
+    nodeCount.splice(0);
+    countLeaves(data);
+  }
+
+  componentDidUpdate() {
+    nodeCount.splice(0);
+    countLeaves(data);
+  }
+
   handleMouseOver = (event, datum) => {
     const coords = localPoint(event.target.ownerSVGElement, event);
     this.props.showTooltip({
@@ -50,17 +80,16 @@ class PertChart extends React.Component {
     } = this.props;
     const stepPercent = 0.5;
     const origin = { x: 0, y: 0 };
-
+    const maxLeaves = nodeCount.reduce((acc, a) => (a > acc ? a : acc), 0);
     return (
       <ParentSize>
         {({ width, height }) => (
           <React.Fragment>
-            <svg width={width} height={height}>
+            <svg width={width} height={40 * maxLeaves}>
               <LinearGradient id="lg" from="#fd9b93" to="#fe6e9e" />
               <Tree
                 top={margin.top}
                 left={margin.left}
-                /* root={hierarchy(data, d => (d.isExpanded ? d.children : null))} */
                 root={hierarchy(data, d => d.children)}
                 size={[
                   height - margin.top - margin.bottom,
@@ -149,7 +178,7 @@ class PertChart extends React.Component {
             </svg>
             {tooltipOpen && (
               <StyledTooltipWithBounds
-                // set this to random so it correctly updates with parent bounds
+                // random so it correctly updates with parent bounds
                 key={Math.random()}
                 top={tooltipTop}
                 left={tooltipLeft}

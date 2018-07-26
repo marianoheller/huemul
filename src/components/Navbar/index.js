@@ -81,7 +81,7 @@ export default class ButtonAppBar extends React.Component {
         type: 'item', icon: 'deadlines', text: 'Deadlines', route: '/deadlines', disabled: true,
       },
       {
-        type: 'item', icon: 'markers', text: 'Markers', route: '/markers', disabled: true,
+        type: 'item', icon: 'markers', text: 'Marcadores', route: '/markers', disabled: true,
       },
       { type: 'divider' },
       {
