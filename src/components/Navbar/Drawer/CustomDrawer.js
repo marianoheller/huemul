@@ -5,13 +5,17 @@ import Drawer from '@material-ui/core/Drawer';
 
 
 const StyledDrawer = styled(Drawer)`
-z-index: ${props => props.theme.zIndex.appBar - 1} !important;
-& > div:last-child {
-position: relative;
-width: 250px !important;
-max-width: 250px;
-background-color: ${props => props.theme.background.secondary};
-}
+  z-index: ${props => props.theme.zIndex.appBar - 1} !important;
+
+  & > div:last-child {
+    position: relative;
+    width: 250px !important;
+    max-width: 250px;
+    background-color: ${props => props.theme.background.secondary};
+  }
+  & > div:last-child > div {
+    outline: none;
+  }
 `;
 
 const AppBarSpacer = styled.div`

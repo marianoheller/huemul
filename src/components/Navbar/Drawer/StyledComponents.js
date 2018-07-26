@@ -33,6 +33,9 @@ export const StyledNavLink = styled(NavLink).attrs({
   text-decoration: none;
   padding: 0 0.5rem;
 
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+
   & svg {
     color: ${props => props.theme.palette.primary[300]};
   }
@@ -40,7 +43,6 @@ export const StyledNavLink = styled(NavLink).attrs({
     font-weight: 300;
     color: white;
   }
-
   
   &:hover {
     background-color: ${props => props.theme.palette.primary[300]};

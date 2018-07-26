@@ -8,7 +8,12 @@ import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
-import { ArrowBack, Event, Dvr, PermIdentity, Business, Work, Group } from '@material-ui/icons';
+import {
+  ArrowBack, Event, Dvr,
+  PermIdentity, Business,
+  Work, Group, Settings,
+  Alarm, TrendingUp, Home,
+} from '@material-ui/icons';
 
 import * as SC from './StyledComponents';
 import CustomDrawer from './CustomDrawer';
@@ -20,6 +25,10 @@ const icons = {
   agenda: <Group />,
   contactos: <PermIdentity />,
   clientes: <Business />,
+  preferencias: <Settings />,
+  deadlines: <Alarm />,
+  markers: <TrendingUp />,
+  home: <Home />,
 };
 
 class Drawer extends React.Component {
@@ -90,17 +99,25 @@ class Drawer extends React.Component {
           <List>
             {items.map((item, i) => {
               switch (item.type) {
-                case 'item':
-                return (
-                  <SC.StyledNavLink to={item.route} key={`${item.route}${i}`}>
-                    <SC.StyledListItem button>
-                      <ListItemIcon>
-                        {icons[item.icon] || <MenuIcon /> }
-                      </ListItemIcon>
-                      <ListItemText primary={item.text} />
-                    </SC.StyledListItem>
-                  </SC.StyledNavLink>
-                );
+                case 'item': {
+                  const {
+                    route,
+                    icon,
+                    text,
+                    disabled,
+                    ...rest
+                  } = item;
+                  return (
+                    <SC.StyledNavLink to={route} key={`${route}${i}`} disabled={disabled} {...rest}>
+                      <SC.StyledListItem button>
+                        <ListItemIcon>
+                          {icons[icon] || <MenuIcon /> }
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </SC.StyledListItem>
+                    </SC.StyledNavLink>
+                  );
+                }
                 case 'divider':
                 return <SC.StyledDivider key={`${item.type}${i}`} />;
                 default:

@@ -64,6 +64,10 @@ export default class ButtonAppBar extends React.Component {
 
     const drawerItems = [
       {
+        type: 'item', icon: 'home', text: 'Home', route: '/',
+      },
+      { type: 'divider' },
+      {
         type: 'item', icon: 'planificador', text: 'Planificador', route: '/planificador',
       },
       {
@@ -73,9 +77,18 @@ export default class ButtonAppBar extends React.Component {
       {
         type: 'item', icon: 'trabajos', text: 'Trabajos', route: '/trabajos',
       },
+      {
+        type: 'item', icon: 'deadlines', text: 'Deadlines', route: '/deadlines', disabled: true,
+      },
+      {
+        type: 'item', icon: 'markers', text: 'Markers', route: '/markers', disabled: true,
+      },
       { type: 'divider' },
       {
         type: 'item', icon: 'agenda', text: 'Agenda', route: '/agenda',
+      },
+      {
+        type: 'item', icon: 'preferencias', text: 'Preferencias', route: '/preferencias', disabled: true,
       },
     ];
 
