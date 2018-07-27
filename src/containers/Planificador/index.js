@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import PertChart from '../../components/PertChart';
+import GanttChart from '../../components/GanttChart';
 
 
 const PlanificadorContainer = styled.div`
@@ -17,7 +18,7 @@ const PlanificadorContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 
   & > div {
@@ -40,6 +41,10 @@ const PertContainer = styled.div`
   width: 100%;
 `;
 
+const GanttContainer = styled.div`
+  width: 100%;
+`;
+
 export default function CalendarioAGH() {
   return (
     <PlanificadorContainer>
@@ -48,6 +53,9 @@ export default function CalendarioAGH() {
         <PertContainer>
           <PertChart />
         </PertContainer>
+        <GanttContainer>
+          <GanttChart />
+        </GanttContainer>
       </ContentContainer>
     </PlanificadorContainer>
   );
