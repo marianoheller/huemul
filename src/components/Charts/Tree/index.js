@@ -14,7 +14,7 @@ import { LinkHorizontal } from '@vx/shape';
 import { withTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { localPoint } from '@vx/event';
 
-import { adjustHexOpacity } from '../../utils';
+import { adjustHexOpacity } from '../../../utils';
 import data from './data';
 
 const StyledNode = styled(Group)`

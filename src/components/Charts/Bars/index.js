@@ -34,7 +34,7 @@ const totals = data.reduce((ret, cur) => {
 }, []);
 
 
-const GanttChart = withTooltip(({
+const Bars = withTooltip(({
   parentWidth: width,
   events = false,
   margin = {
@@ -172,4 +172,4 @@ const GanttChart = withTooltip(({
   );
 });
 
-export default withTheme(withParentSize(GanttChart));
+export default withTheme(withParentSize(Bars));

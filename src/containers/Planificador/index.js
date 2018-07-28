@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PertChart from '../../components/PertChart';
-import GanttChart from '../../components/GanttChart';
+import TreeChart from '../../components/Charts/Tree';
+import BarsChart from '../../components/Charts/Bars';
+import AreaChart from '../../components/Charts/Area';
+import PieChart from '../../components/Charts/Pie';
+import BarGroupChart from '../../components/Charts/BarGroup';
 
 
 const PlanificadorContainer = styled.div`
@@ -37,11 +40,7 @@ const Title = styled.div`
   cursor: default;
 `;
 
-const PertContainer = styled.div`
-  width: 100%;
-`;
-
-const GanttContainer = styled.div`
+const ChartContainer = styled.div`
   width: 100%;
 `;
 
@@ -50,12 +49,21 @@ export default function CalendarioAGH() {
     <PlanificadorContainer>
       <Title>Planificador</Title>
       <ContentContainer>
-        <PertContainer>
-          <PertChart />
-        </PertContainer>
-        <GanttContainer>
-          <GanttChart />
-        </GanttContainer>
+        <ChartContainer>
+          <TreeChart />
+        </ChartContainer>
+        <ChartContainer>
+          <BarsChart />
+        </ChartContainer>
+        <ChartContainer>
+          <AreaChart />
+        </ChartContainer>
+        <ChartContainer>
+          <PieChart />
+        </ChartContainer>
+        <ChartContainer>
+          <BarGroupChart />
+        </ChartContainer>
       </ContentContainer>
     </PlanificadorContainer>
   );

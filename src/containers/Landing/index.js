@@ -9,7 +9,7 @@ export default function Landing() {
       <SC.Title>huemul</SC.Title>
       <SC.Subtitle>gestión.de.procesos</SC.Subtitle>
       <SC.Description>
-        This is a minimal PWA reduced from a bigger product done for a client.<br />
+        This is a minimal PWA reduced from a bigger product.<br />
         All private information has been obfuscated or removed and many features were disabled.
       </SC.Description>
     </SC.StyledContainer>
