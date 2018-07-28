@@ -25,8 +25,10 @@ const ErrorContainer = styled.div`
 
 
 const LoadingComponent = ({ pastDelay, error }) => {
-  if (error) return <ErrorContainer>Sorry, there was a problem loading the page.</ErrorContainer>;
-  else if (pastDelay) {
+  if (error) {
+    console.log(error);
+    return <ErrorContainer>Sorry, there was a problem loading the page.</ErrorContainer>;
+  } else if (pastDelay) {
     return (
       <SpinnerWrapper>
         <Spinner message="Loading..." />

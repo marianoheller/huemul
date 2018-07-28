@@ -10,7 +10,7 @@ export default function Landing() {
       <SC.Subtitle>gestión.de.procesos</SC.Subtitle>
       <SC.Description>
         This is a minimal PWA reduced from a bigger product.<br />
-        All private information has been obfuscated or removed and many features were disabled.
+        All private information has been obfuscated or removed and many features have been disabled.
       </SC.Description>
     </SC.StyledContainer>
   );

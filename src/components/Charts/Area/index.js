@@ -105,67 +105,73 @@ class Area extends React.Component {
               />
             </LinearGradient>
           </defs>
-          <GridRows
-            lineStyle={{ pointerEvents: 'none' }}
-            scale={yScale}
-            width={xMax}
-            strokeDasharray="2,2"
-            stroke={this.props.theme.palette.secondary[300]}
-            strokeOpacity={0.5}
-          />
-          <GridColumns
-            lineStyle={{ pointerEvents: 'none' }}
-            scale={xScale}
-            height={yMax}
-            strokeDasharray="2,2"
-            stroke={this.props.theme.palette.secondary[300]}
-            strokeOpacity={0.5}
-          />
-          <AreaClosed
-            data={stock}
-            xScale={xScale}
-            yScale={yScale}
-            x={xStock}
-            y={yStock}
-            strokeWidth={1}
-            stroke="url(#gradient)"
-            fill="url(#gradient)"
-            curve={curveMonotoneX}
-          />
-          <Bar
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            fill="transparent"
-            rx={14}
-            data={stock}
-            onTouchStart={data => event =>
-              this.handleTooltip({
-                event,
-                data,
-                xStock,
-                xScale,
-                yScale,
-              })}
-            onTouchMove={data => event =>
-              this.handleTooltip({
-                event,
-                data,
-                xStock,
-                xScale,
-                yScale,
-              })}
-            onMouseMove={data => event =>
-              this.handleTooltip({
-                event,
-                data,
-                xStock,
-                xScale,
-                yScale,
-              })}
-            onMouseLeave={() => () => hideTooltip()}
-          />
+          <g
+            style={{
+              transform: `translate(${margin.left}, ${margin.top})`,
+            }}
+          >
+            <GridRows
+              lineStyle={{ pointerEvents: 'none' }}
+              scale={yScale}
+              width={xMax}
+              strokeDasharray="2,2"
+              stroke={this.props.theme.palette.secondary[300]}
+              strokeOpacity={0.5}
+            />
+            <GridColumns
+              lineStyle={{ pointerEvents: 'none' }}
+              scale={xScale}
+              height={yMax}
+              strokeDasharray="2,2"
+              stroke={this.props.theme.palette.secondary[300]}
+              strokeOpacity={0.5}
+            />
+            <AreaClosed
+              data={stock}
+              xScale={xScale}
+              yScale={yScale}
+              x={xStock}
+              y={yStock}
+              strokeWidth={1}
+              stroke="url(#gradient)"
+              fill="url(#gradient)"
+              curve={curveMonotoneX}
+            />
+            <Bar
+              x={0}
+              y={0}
+              width={width}
+              height={height}
+              fill="transparent"
+              rx={14}
+              data={stock}
+              onTouchStart={data => event =>
+                this.handleTooltip({
+                  event,
+                  data,
+                  xStock,
+                  xScale,
+                  yScale,
+                })}
+              onTouchMove={data => event =>
+                this.handleTooltip({
+                  event,
+                  data,
+                  xStock,
+                  xScale,
+                  yScale,
+                })}
+              onMouseMove={data => event =>
+                this.handleTooltip({
+                  event,
+                  data,
+                  xStock,
+                  xScale,
+                  yScale,
+                })}
+              onMouseLeave={() => () => hideTooltip()}
+            />
+          </g>
           {tooltipData && (
             <g>
               <Line

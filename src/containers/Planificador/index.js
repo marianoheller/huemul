@@ -1,5 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import {
+  MultilineChart,
+  LinearScale,
+  ShowChart,
+  PieChart as PieChartIcon,
+  BubbleChart,
+} from '@material-ui/icons';
 
 import TreeChart from '../../components/Charts/Tree';
 import BarsChart from '../../components/Charts/Bars';
@@ -14,57 +24,89 @@ const PlanificadorContainer = styled.div`
   
   align-items: center;
   justify-content: center;
-
-  width: 90vw;
-  margin-left: 5vw;
+  width: 100%;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: hidden;
+`;
 
-  & > div {
-    margin-right: 1rem;
-  }
-  & > div:last-child {
-    margin-right: 0;
-  }
+const StyledAppBar = styled(AppBar)`
+  width: 100%;
 `;
 
 const Title = styled.div`
   font-weight: 200;
   color: ${props => props.theme.palette.primary[300]};
   font-size: 3rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
   cursor: default;
+  text-align: center;
 `;
 
 const ChartContainer = styled.div`
-  width: 100%;
+
+  padding: 0 1rem;
 `;
 
-export default function CalendarioAGH() {
-  return (
-    <PlanificadorContainer>
-      <Title>Planificador</Title>
-      <ContentContainer>
-        <ChartContainer>
-          <TreeChart />
-        </ChartContainer>
-        <ChartContainer>
-          <BarsChart />
-        </ChartContainer>
-        <ChartContainer>
-          <AreaChart />
-        </ChartContainer>
-        <ChartContainer>
-          <PieChart />
-        </ChartContainer>
-        <ChartContainer>
-          <BarGroupChart />
-        </ChartContainer>
-      </ContentContainer>
-    </PlanificadorContainer>
-  );
+const StyledTabs = styled(Tabs)`
+  background-color: ${props => props.theme.background.secondary};
+`;
+
+const StyledTab = styled(Tab)`
+  color: ${({ selected, theme }) => (selected ?
+    theme.palette.primary[300]
+    :
+    theme.palette.secondary[300])} !important;
 }
+`;
+
+class CalendarioAGH extends React.Component {
+  state = { value: 0 };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  render() {
+    const { value } = this.state;
+    return (
+      <PlanificadorContainer>
+        <StyledAppBar position="static" color="default">
+          <StyledTabs
+            value={value}
+            onChange={this.handleChange}
+            scrollable
+            scrollButtons="on"
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+            fullWidth
+            data-cy-type="tabs"
+          >
+            <StyledTab label="Chart One" icon={<MultilineChart />} />
+            <StyledTab label="Chart Two" icon={<LinearScale />} />
+            <StyledTab label="Chart Three" icon={<ShowChart />} />
+            <StyledTab label="Chart Four" icon={<PieChartIcon />} />
+            <StyledTab label="Chart Five" icon={<BubbleChart />} />
+          </StyledTabs>
+        </StyledAppBar>
+        <ContentContainer>
+          <Title>Planificador</Title>
+          <ChartContainer>
+            {value === 0 && <TreeChart />}
+            {value === 1 && <BarGroupChart />}
+            {value === 2 && <AreaChart />}
+            {value === 3 && <PieChart />}
+            {value === 4 && <BarsChart />}
+          </ChartContainer>
+        </ContentContainer>
+      </PlanificadorContainer>
+    );
+  }
+}
+
+export default CalendarioAGH;
