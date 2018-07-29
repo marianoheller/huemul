@@ -108,7 +108,7 @@ class Drawer extends React.Component {
                     ...rest
                   } = item;
                   return (
-                    <SC.StyledNavLink to={route} key={`${route}${i}`} disabled={disabled} {...rest}>
+                    <SC.StyledNavLink exact to={route} key={`${route}${i}`} disabled={disabled} {...rest}>
                       <SC.StyledListItem button>
                         <ListItemIcon>
                           {icons[icon] || <MenuIcon /> }

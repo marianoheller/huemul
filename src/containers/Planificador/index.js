@@ -36,6 +36,7 @@ const ContentContainer = styled.div`
 
 const StyledAppBar = styled(AppBar)`
   width: 100%;
+  z-index: ${props => props.theme.zIndex.appBar - 1} !important;
 `;
 
 const Title = styled.div`
